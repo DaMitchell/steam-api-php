@@ -1,5 +1,6 @@
 vendor
 composer.lock
+composer.bat
 composer.phar
 *.iml
 .idea

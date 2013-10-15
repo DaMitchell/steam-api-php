@@ -2,7 +2,7 @@
     "name": "da-mitchell/steam-api",
     "type": "library",
     "description": "PHP wrapper for the steam web API",
-    "keywords": ["steam","dota", "api"],
+    "keywords": ["steam", "dota", "api"],
     "homepage": "http://github.com/DaMitchell/steam-php-api",
     "license": "MIT",
     "authors": [
