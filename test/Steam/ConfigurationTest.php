@@ -9,7 +9,7 @@ use Steam\Exception\InvalidConfigOptionException;
 require __DIR__ . '/../../src/Steam/Configuration.php';
 require __DIR__ . '/../../src/Steam/Exception/InvalidConfigOptionException.php';
 
-class Configuration_Test extends PHPUnit_Framework_TestCase {
+class ConfigurationTest extends PHPUnit_Framework_TestCase {
 
     public function test_setSteamKey()
     {
