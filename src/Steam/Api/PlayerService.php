@@ -2,6 +2,7 @@
 
 namespace Steam\Api;
 
-class PlayerService {
+class PlayerService
+{
 
 }

@@ -5,7 +5,7 @@ namespace Steam;
 use Steam\Adapter\AdapterInterface;
 use Steam\Api\Exception\NoAdapterSetException;
 
-class SteamInterface
+abstract class Steam
 {
     /**
      * @var AdapterInterface
@@ -31,7 +31,7 @@ class SteamInterface
     /**
      * @param Configuration $config
      *
-     * @return SteamInterface
+     * @return Steam
      */
     public function setConfig(Configuration $config)
     {
@@ -50,7 +50,7 @@ class SteamInterface
     /**
      * @param AdapterInterface $adapter
      *
-     * @return SteamInterface
+     * @return Steam
      */
     public function setAdapter(Adapter\AdapterInterface $adapter)
     {

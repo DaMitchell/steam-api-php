@@ -19,10 +19,11 @@ interface AdapterInterface
     /**
      * @param string $url
      * @param array $params
+     * @param string $steamKey
      *
      * @return AdapterInterface
      */
-    public function request($url, array $params = array());
+    public function request($url, array $params = array(), $steamKey = null);
 
     /**
      * @return string

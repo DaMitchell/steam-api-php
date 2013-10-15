@@ -3,9 +3,10 @@
 namespace Steam\Api;
 
 use Steam\Api\Exception\ApiNotImplementedException;
-use Steam\SteamInterface;
+use Steam\Api\Exception\InsufficientParameters;
+use Steam\Steam;
 
-class Apps extends SteamInterface
+class Apps extends Steam
 {
     const ENDPOINT_BASE = 'ISteamApps/';
 
@@ -22,22 +23,28 @@ class Apps extends SteamInterface
     }
 
     /**
-     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetServersAtAddress
-     *
-     * @throws Exception\ApiNotImplementedException
-     */
-    public function getServerAtAddress()
-    {
-        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
-    }
-
-    /**
      * @link http://wiki.teamfortress.com/wiki/WebAPI/UpToDateCheck
      *
-     * @throws Exception\ApiNotImplementedException
+     * @param int $version
+     *
+     * @throws Exception\InsufficientParameters
      */
-    public function upToDateCheck()
+    public function upToDateCheck($version)
     {
-        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
+        $appId = $this->getConfig()->getAppId();
+
+        if(empty($appId))
+        {
+            throw new InsufficientParameters('You need to set a appId in the config to use this method');
+        }
+
+        $params = array(
+            'appId' => $appId,
+            'version' => $version
+        );
+
+        $url = self::ENDPOINT_BASE . 'UpToDateCheck/v1';
+
+        return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 }

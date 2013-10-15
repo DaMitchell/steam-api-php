@@ -42,7 +42,7 @@ class Configuration
      */
     public function setSteamKey($appKey)
     {
-        $this->_options['appKey'] = $appKey;
+        $this->_options['steamKey'] = $appKey;
         return $this;
     }
 
@@ -51,7 +51,7 @@ class Configuration
      */
     public function getSteamKey()
     {
-        return $this->_options['appKey'];
+        return $this->_options['steamKey'];
     }
 
     /**

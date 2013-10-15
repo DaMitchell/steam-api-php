@@ -15,12 +15,20 @@ class Guzzle extends AdapterAbstract implements AdapterInterface
     /**
      * @param string $url
      * @param array $params
+     * @param null $steamKey
      *
      * @return AdapterInterface
      */
-    public function request($url, array $params = array())
+    public function request($url, array $params = array(), $steamKey = null)
     {
-        $this->_rawBody = $this->getClient()->get($url, $params)->send()->getBody();
+        if(!is_null($steamKey))
+        {
+            $params['key'] = $steamKey;
+        }
+
+        $url .= '?' . http_build_query($params);
+
+        $this->_rawBody = $this->getClient()->get($url)->send()->getBody();
         return $this;
     }
 

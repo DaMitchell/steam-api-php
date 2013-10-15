@@ -2,6 +2,7 @@
 
 namespace Steam\Api;
 
-class UserStats {
+class UserStats
+{
 
 }
