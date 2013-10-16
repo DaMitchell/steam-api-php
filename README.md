@@ -1,4 +1,4 @@
 steam-api-php
 =============
 
-A PHP wrapper for the Steam api
+A PHP wrapper for the Steam API
