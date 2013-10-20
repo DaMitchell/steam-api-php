@@ -43,7 +43,7 @@ class User extends Steam
             $requestParams['relationship'] = $relationship;
         }
 
-        return $this->getAdapter()->request($url, $requestParams, $this->getConfig()->getSteamKey())->getParsedBody();
+        return $this->getAdapter()->request($url, $requestParams)->getParsedBody();
     }
 
     public function getPlayerBans()
@@ -75,7 +75,7 @@ class User extends Steam
         return $this->getAdapter()
             ->request($url, array(
                 'vanityurl' => $vanityurl,
-            ), $this->getConfig()->getSteamKey())
+            ))
             ->getParsedBody();
     }
 }
