@@ -2,28 +2,29 @@
 
 namespace Steam\Adapter;
 
+use Steam\Configuration;
+
 interface AdapterInterface
 {
     /**
-     * @param string $url
+     * @param Configuration $config
      *
      * @return AdapterInterface
      */
-    public function setBaseSteamApiUrl($url);
+    public function setConfig(Configuration $config);
 
     /**
-     * @return string
+     * @return Configuration
      */
-    public function getBaseSteamApiUrl();
+    public function getConfig();
 
     /**
      * @param string $url
      * @param array $params
-     * @param string $steamKey
      *
      * @return AdapterInterface
      */
-    public function request($url, array $params = array(), $steamKey = null);
+    public function request($url, array $params = array());
 
     /**
      * @return string
