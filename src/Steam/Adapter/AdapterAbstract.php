@@ -10,9 +10,15 @@
 namespace Steam\Adapter;
 
 use JMS\Serializer\Serializer;
+use Steam\Configuration;
 
 class AdapterAbstract
 {
+    /**
+     * @var Configuration
+     */
+    protected $_config = null;
+
     /**
      * @var string
      */
@@ -34,22 +40,30 @@ class AdapterAbstract
     protected $_serializer = null;
 
     /**
-     * @param string $url
+     * @param Configuration $config
+     */
+    public function __construct(Configuration $config)
+    {
+        $this->setConfig($config);
+    }
+
+    /**
+     * @param Configuration $config
      *
      * @return AdapterInterface
      */
-    public function setBaseSteamApiUrl($url)
+    public function setConfig(Configuration $config)
     {
-        $this->_baseSteamApi = $url;
+        $this->_config = $config;
         return $this;
     }
 
     /**
-     * @return string
+     * @return Configuration
      */
-    public function getBaseSteamApiUrl()
+    public function getConfig()
     {
-        return $this->_baseSteamApi;
+        return $this->_config;
     }
 
     /**

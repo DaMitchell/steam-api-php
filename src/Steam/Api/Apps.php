@@ -26,11 +26,12 @@ class Apps extends Steam
      *
      * @param int $version
      *
+     * @return array
      * @throws Exception\InsufficientParameters
      */
     public function upToDateCheck($version)
     {
-        $appId = $this->getConfig()->getAppId();
+        $appId = $this->getAdapter()->getConfig()->getAppId();
 
         if(empty($appId))
         {

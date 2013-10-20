@@ -13,48 +13,13 @@ abstract class Steam
     protected $_adapter = null;
 
     /**
-     * @var Configuration
-     */
-    protected $_config = null;
-
-    /**
-     * @param Configuration $config
-     */
-    public function __construct(Configuration $config = null)
-    {
-        if(!is_null($config))
-        {
-            $this->setConfig($config);
-        }
-    }
-
-    /**
-     * @param Configuration $config
-     *
-     * @return Steam
-     */
-    public function setConfig(Configuration $config)
-    {
-        $this->_config = $config;
-        return $this;
-    }
-
-    /**
-     * @return Configuration
-     */
-    public function getConfig()
-    {
-        return $this->_config;
-    }
-
-    /**
      * @param AdapterInterface $adapter
      *
      * @return Steam
      */
     public function setAdapter(Adapter\AdapterInterface $adapter)
     {
-        $this->_adapter = $adapter->setBaseSteamApiUrl($this->getConfig()->getBaseSteamApiUrl());
+        $this->_adapter = $adapter;
         return $this;
     }
 
