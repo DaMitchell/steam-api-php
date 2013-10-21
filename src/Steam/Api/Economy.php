@@ -2,7 +2,6 @@
 
 namespace Steam\Api;
 
-use Steam\Api\Exception\ApiNotImplementedException;
 use Steam\Api\Exception\InsufficientParameters;
 use Steam\Steam;
 
@@ -10,6 +9,15 @@ class Economy extends Steam
 {
     const ENDPOINT_BASE = 'ISteamEconomy/';
 
+    /**
+     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetAssetClassInfo
+     *
+     * @param array $classIds
+     * @param string $language
+     *
+     * @return mixed
+     * @throws Exception\InsufficientParameters
+     */
     public function getAssetClassInfo(array $classIds = array(), $language = 'en')
     {
         $appId = $this->getAdapter()->getConfig()->getAppId();
@@ -38,6 +46,15 @@ class Economy extends Steam
         return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 
+    /**
+     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetAssetPrices
+     *
+     * @param string $language
+     * @param null $currency
+     *
+     * @return mixed
+     * @throws Exception\InsufficientParameters
+     */
     public function getAssetPrices($language = 'en', $currency = null)
     {
         $appId = $this->getAdapter()->getConfig()->getAppId();
