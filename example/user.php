@@ -18,13 +18,10 @@ $adapter->setSerializer(JMS\Serializer\SerializerBuilder::create()->build());
 $user = new User();
 $user->setAdapter($adapter);
 
-try
-{
+try {
     $result = $user->getFriendList('fr3nzzy');
     var_dump($result);
-}
-catch(Guzzle\Http\Exception\ClientErrorResponseException $e)
-{
+} catch (Guzzle\Http\Exception\ClientErrorResponseException $e) {
     var_dump($e->getRequest()->getUrl());
     var_dump($e->getResponse()->getBody(true));
 }
