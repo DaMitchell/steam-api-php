@@ -40,7 +40,7 @@ class Apps extends Steam
         }
 
         $params = array(
-            'appId' => $appId,
+            'appid' => $appId,
             'version' => $version
         );
 
