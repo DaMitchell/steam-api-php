@@ -9,18 +9,31 @@ class AppsTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAppList()
     {
-        $options = array(
-            'steamKey' => 'A88F8BADC002DCE760B1F9D095B8FB3C'
+        $result = array(
+            'applist' => array(
+                'apps' => array(
+                    array(
+                        'appid' => 9568333,
+                        'name' => 'app test',
+                    ),
+                    array(
+                        'appid' => 9568333,
+                        'name' => 'app test 2',
+                    ),
+                )
+            )
         );
-        $config = new Configuration($options);
 
-        $adapter = new Guzzle($config);
-        $adapter->setSerializer(SerializerBuilder::create()->build());
+        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock->expects($this->once())->method('request')->will($this->returnSelf());
+        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
 
-        $apps = new Apps($config);
-        $apps->setAdapter($adapter);
-        $appsList = $apps->getAppList();
-        $this->assertArrayHasKey('applist', $appsList);
+        $apps = new Apps();
+        $apps->setAdapter($mock);
+        $appList = $apps->getAppList();
+        $this->assertEquals($result, $appList);
     }
 
     public function testUpToDateCheck()

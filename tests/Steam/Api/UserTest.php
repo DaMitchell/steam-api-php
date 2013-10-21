@@ -1,25 +1,44 @@
 <?php
 namespace Steam;
 
-use JMS\Serializer\SerializerBuilder;
 use Steam\Adapter\Guzzle;
 use Steam\Api\User;
+use JMS\Serializer\SerializerBuilder;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetFriendList()
     {
-        $options = array(
-            'steamKey' => 'A88F8BADC002DCE760B1F9D095B8FB3C'
+        $result = array(
+            'friendslist' => array(
+                array(
+                    'steamid' => 9568333,
+                    'relationship' => 'friend',
+                    'friend_since' => 1234567890111,
+                ),
+                array(
+                    'steamid' => 9568333,
+                    'relationship' => 'friend',
+                    'friend_since' => 1234567890111,
+                ),
+                array(
+                    'steamid' => 9568333,
+                    'relationship' => 'friend',
+                    'friend_since' => 1234567890111,
+                ),
+            )
         );
-        $config = new Configuration($options);
-        $adapter = new Guzzle($config);
-        $adapter->setSerializer(SerializerBuilder::create()->build());
 
-        $user = new User($config);
-        $user->setAdapter($adapter);
-        $friendList = $user->getFriendList('fr3nzzy');
-        $this->assertArrayHasKey('friendslist', $friendList);
+        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
+                        ->disableOriginalConstructor()
+                        ->getMock();
+        $mock->expects($this->once())->method('request')->will($this->returnSelf());
+        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+
+        $user = new User();
+        $user->setAdapter($mock);
+        $friends = $user->getFriendList(123);
+        $this->assertEquals($result, $friends);
     }
 
     /**
@@ -27,15 +46,13 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFriendListException()
     {
-        $options = array(
-            'steamKey' => 'A88F8BADC002DCE760B1F9D095B8FB3C',
-        );
-        $config = new Configuration($options);
-        $adapter = new Guzzle($config);
-        $adapter->setSerializer(SerializerBuilder::create()->build());
+        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock->expects($this->once())->method('request')->will($this->returnSelf());
 
-        $user = new User($config);
-        $user->setAdapter($adapter);
+        $user = new User();
+        $user->setAdapter($mock);
         $user->getFriendList('%%%soft-kitty-bad-kitty-ball-of-not-controlled-anger-with-dude%%%');
     }
 
