@@ -1,8 +1,6 @@
 <?php
 namespace Steam;
 
-use JMS\Serializer\SerializerBuilder;
-use Steam\Adapter\Guzzle;
 use Steam\Api\Apps;
 
 class AppsTest extends \PHPUnit_Framework_TestCase
