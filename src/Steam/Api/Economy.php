@@ -15,7 +15,7 @@ class Economy extends Steam
      * @param array $classIds
      * @param string $language
      *
-     * @return mixed
+     * @return array
      * @throws Exception\InsufficientParameters
      */
     public function getAssetClassInfo(array $classIds = array(), $language = 'en')
@@ -50,9 +50,9 @@ class Economy extends Steam
      * @link http://wiki.teamfortress.com/wiki/WebAPI/GetAssetPrices
      *
      * @param string $language
-     * @param null $currency
+     * @param string $currency
      *
-     * @return mixed
+     * @return array
      * @throws Exception\InsufficientParameters
      */
     public function getAssetPrices($language = 'en', $currency = null)
