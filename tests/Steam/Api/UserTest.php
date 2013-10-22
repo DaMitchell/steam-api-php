@@ -273,6 +273,25 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public function testResolveVanityUrl()
     {
+        $result = array(
+            'response' => array(
+                array(
+                    'success' => 1,
+                    'steamid ' => 9568333,
+                ),
+            )
+        );
+
+        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock->expects($this->once())->method('request')->will($this->returnSelf());
+        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+
+        $user = new User();
+        $user->setAdapter($mock);
+        $steamId = $user->resolveVanityUrl('test');
+        $this->assertEquals($result, $steamId);
     }
 
 }
