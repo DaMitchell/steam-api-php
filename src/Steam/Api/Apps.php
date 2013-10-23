@@ -2,7 +2,6 @@
 
 namespace Steam\Api;
 
-use Steam\Api\Exception\ApiNotImplementedException;
 use Steam\Api\Exception\InsufficientParameters;
 use Steam\Steam;
 

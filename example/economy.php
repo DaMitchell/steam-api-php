@@ -19,14 +19,11 @@ $adapter->setSerializer(JMS\Serializer\SerializerBuilder::create()->build());
 $economy = new Economy();
 $economy->setAdapter($adapter);
 
-try
-{
+try {
     //$result = $economy->getAssetClassInfo(array('147888890'));
     $result = $economy->getAssetPrices();
     var_dump($result);
-}
-catch(Guzzle\Http\Exception\ClientErrorResponseException $e)
-{
+} catch (Guzzle\Http\Exception\ClientErrorResponseException $e) {
     var_dump($e->getRequest()->getUrl());
     var_dump($e->getResponse()->getBody(true));
 }

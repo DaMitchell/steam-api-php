@@ -4,10 +4,10 @@
 include_once __DIR__ . '/../vendor/autoload.php';
 
 use Steam\Configuration;
-use Steam\Api\Apps;
+use Steam\Api\User;
 
 $options = array(
-    'appId' => \Steam\Apps::DOTA_2_ID,
+    'steamKey' => 'A88F8BADC002DCE760B1F9D095B8FB3C',
 );
 
 $config = new Configuration($options);
@@ -15,12 +15,11 @@ $config = new Configuration($options);
 $adapter = new Steam\Adapter\Guzzle($config);
 $adapter->setSerializer(JMS\Serializer\SerializerBuilder::create()->build());
 
-$apps = new Apps();
-$apps->setAdapter($adapter);
+$user = new User();
+$user->setAdapter($adapter);
 
 try {
-    //$result = $apps->upToDateCheck(1);
-    $result = $apps->getAppList();
+    $result = $user->getFriendList('fr3nzzy');
     var_dump($result);
 } catch (Guzzle\Http\Exception\ClientErrorResponseException $e) {
     var_dump($e->getRequest()->getUrl());
