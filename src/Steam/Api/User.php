@@ -3,7 +3,7 @@
 namespace Steam\Api;
 
 use Steam\Api\Exception\InsufficientParameters;
-use Steam\Api\Exception\UserNotExists;
+use Steam\Api\Exception\NoSuchUser;
 use Steam\Steam;
 
 class User extends Steam
@@ -14,12 +14,12 @@ class User extends Steam
     const USER_RELATION_FRIEND = 'friend';
 
     /**
-     * @link https://developer.valvesoftware.com/wiki/Steam_Web_API#GetFriendList_.28v0001.29
+     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetFriendList
      *
      * @param int $steamId
      * @param string $relationship
      *
-     * @throws Exception\UserNotExists
+     * @throws Exception\NoSuchUser
      * @return array
      */
     public function getFriendList($steamId, $relationship = '')
@@ -36,7 +36,7 @@ class User extends Steam
             }
             else
             {
-                throw new UserNotExists(sprintf('User with url "%s" does not exists', $steamId));
+                throw new NoSuchUser(sprintf('User with url "%s" does not exists', $steamId));
             }
         }
 
@@ -59,7 +59,7 @@ class User extends Steam
      * @param bool $dump
      *
      * @throws Exception\InsufficientParameters
-     * @throws Exception\UserNotExists
+     * @throws Exception\NoSuchUser
      * @return array
      */
     public function getPlayerBans($steamIds = array(), $dump = false)
@@ -93,7 +93,7 @@ class User extends Steam
 
         if (count($notExistsUsers) > 0)
         {
-            throw new UserNotExists(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
+            throw new NoSuchUser(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
         }
 
         $requestParams = array(
@@ -108,7 +108,7 @@ class User extends Steam
      *
      * @param array $steamIds
      *
-     * @throws Exception\UserNotExists
+     * @throws Exception\NoSuchUser
      * @throws Exception\InsufficientParameters
      *
      * @return array
@@ -144,7 +144,7 @@ class User extends Steam
 
         if (count($notExistsUsers) > 0)
         {
-            throw new UserNotExists(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
+            throw new NoSuchUser(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
         }
 
         $requestParams = array(
@@ -159,7 +159,7 @@ class User extends Steam
      *
      * @param int $steamId
      *
-     * @throws Exception\UserNotExists
+     * @throws Exception\NoSuchUser
      * @return array
      */
     public function getUserGroupList($steamId)
@@ -176,7 +176,7 @@ class User extends Steam
             }
             else
             {
-                throw new UserNotExists(sprintf('User with url "%s" does not exists', $steamId));
+                throw new NoSuchUser(sprintf('User with url "%s" does not exists', $steamId));
             }
         }
 

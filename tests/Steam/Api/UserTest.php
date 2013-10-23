@@ -40,7 +40,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Steam\Api\Exception\UserNotExists
+     * @expectedException \Steam\Api\Exception\NoSuchUser
      */
     public function testGetFriendListException()
     {
@@ -98,7 +98,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Steam\Api\Exception\UserNotExists
+     * @expectedException \Steam\Api\Exception\NoSuchUser
      */
     public function testGetPlayerBansUserNotExistsException()
     {
@@ -196,7 +196,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Steam\Api\Exception\UserNotExists
+     * @expectedException \Steam\Api\Exception\NoSuchUser
      */
     public function testGetPlayerSummariesException()
     {
@@ -257,7 +257,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Steam\Api\Exception\UserNotExists
+     * @expectedException \Steam\Api\Exception\NoSuchUser
      */
     public function testGetUserGroupListException()
     {

@@ -2,7 +2,7 @@
 
 namespace Steam\Api\Exception;
 
-class UserNotExists extends \Exception
+class NoSuchUser extends \Exception
 {
 
 }
