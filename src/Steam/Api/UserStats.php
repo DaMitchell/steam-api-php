@@ -72,29 +72,110 @@ class UserStats extends Steam
             $params['enddate'] = $endDate;
         }
 
-
         $url = self::ENDPOINT_BASE . 'GetGlobalStatsForGame/v0001';
 
         return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 
+    /**
+     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetNumberOfCurrentPlayers
+     *
+     * @return array
+     * @throws InsufficientParameters
+     */
     public function getNumberOfCurrentPlayers()
     {
-        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
+        $appId = $this->getAdapter()->getConfig()->getAppId();
+
+        if(empty($appId))
+        {
+            throw new InsufficientParameters('You need to set a appId in the config to use this method');
+        }
+
+        $params = array(
+            'appid' => $appId,
+        );
+
+        $url = self::ENDPOINT_BASE . 'GetNumberOfCurrentPlayers/v1';
+
+        return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 
-    public function getPlayerAchievements()
+    /**
+     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerAchievements
+     *
+     * @param int $steamId
+     *
+     * @return array
+     * @throws InsufficientParameters
+     */
+    public function getPlayerAchievements($steamId)
     {
-        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
+        $appId = $this->getAdapter()->getConfig()->getAppId();
+
+        if(empty($appId))
+        {
+            throw new InsufficientParameters('You need to set a appId in the config to use this method');
+        }
+
+        $params = array(
+            'appid' => $appId,
+            'steamid' => $steamId,
+        );
+
+        $url = self::ENDPOINT_BASE . 'GetPlayerAchievements/v1';
+
+        return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 
+    /**
+     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetSchemaForGame
+     *
+     * @return array
+     * @throws InsufficientParameters
+     */
     public function getSchemaForGame()
     {
-        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
+        $appId = $this->getAdapter()->getConfig()->getAppId();
+
+        if(empty($appId))
+        {
+            throw new InsufficientParameters('You need to set a appId in the config to use this method');
+        }
+
+        $params = array(
+            'appid' => $appId,
+        );
+
+        $url = self::ENDPOINT_BASE . 'GetSchemaForGame/v2';
+
+        return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 
-    public function getUserStatsForGame()
+    /**
+     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetUserStatsForGame
+     *
+     * @param $steamId
+     *
+     * @return array
+     * @throws InsufficientParameters
+     */
+    public function getUserStatsForGame($steamId)
     {
-        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
+        $appId = $this->getAdapter()->getConfig()->getAppId();
+
+        if(empty($appId))
+        {
+            throw new InsufficientParameters('You need to set a appId in the config to use this method');
+        }
+
+        $params = array(
+            'appid' => $appId,
+            'steamid' => $steamId,
+        );
+
+        $url = self::ENDPOINT_BASE . 'GetUserStatsForGame/v2';
+
+        return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 }

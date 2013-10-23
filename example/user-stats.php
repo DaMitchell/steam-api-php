@@ -22,7 +22,10 @@ $userStats->setAdapter($adapter);
 try
 {
     //$result = $userStats->getGlobalAchievementPercentagesForApp();
-    $result = $userStats->getGlobalStatsForGame(1, array('DOTA_SHOW_FULL_UI'));
+    //$result = $userStats->getGlobalStatsForGame(1, array('DOTA_SHOW_FULL_UI'));
+    //$result = $userStats->getNumberOfCurrentPlayers();
+    //$result = $userStats->getPlayerAchievements(76561198049450178, 'de');
+    $result = $userStats->getUserStatsForGame(76561198049450178);
     var_dump($result);
 }
 catch(Guzzle\Http\Exception\ClientErrorResponseException $e)
