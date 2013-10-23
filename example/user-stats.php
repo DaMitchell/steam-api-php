@@ -21,7 +21,8 @@ $userStats->setAdapter($adapter);
 
 try
 {
-    $result = $userStats->getGlobalAchievementPercentagesForApp(440);
+    //$result = $userStats->getGlobalAchievementPercentagesForApp();
+    $result = $userStats->getGlobalStatsForGame(1, array('DOTA_SHOW_FULL_UI'));
     var_dump($result);
 }
 catch(Guzzle\Http\Exception\ClientErrorResponseException $e)
