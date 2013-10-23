@@ -35,7 +35,7 @@ class UserStats extends Steam
             'gameid' => $gameId
         );
 
-        $url = self::ENDPOINT_BASE . 'GetRecentlyPlayedGames/v1';
+        $url = self::ENDPOINT_BASE . 'GetGlobalAchievementPercentagesForApp/v0002';
 
         return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
