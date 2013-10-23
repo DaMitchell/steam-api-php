@@ -28,8 +28,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
         );
 
         $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-                        ->disableOriginalConstructor()
-                        ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         $mock->expects($this->once())->method('request')->will($this->returnSelf());
         $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
 
