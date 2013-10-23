@@ -17,7 +17,7 @@ class News extends Steam
      * @param int $endDate
      *
      * @return array
-     * @throws Exception\InsufficientParameters
+     * @throws InsufficientParameters
      */
     public function getNewsForApp($count = null, $maxLength = null, $endDate = null)
     {

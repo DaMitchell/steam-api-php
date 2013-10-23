@@ -13,8 +13,8 @@ class UserStats extends Steam
     /**
      * @link http://wiki.teamfortress.com/wiki/WebAPI/GetGlobalAchievementPercentagesForApp
      *
-     * @throws InsufficientParameters
      * @return array
+     * @throws InsufficientParameters
      */
     public function getGlobalAchievementPercentagesForApp()
     {
@@ -45,7 +45,7 @@ class UserStats extends Steam
      * @param int $endDate
      *
      * @return array
-     * @throws Exception\InsufficientParameters
+     * @throws InsufficientParameters
      */
     public function getGlobalStatsForGame($count, array $names, $startDate = null, $endDate = null)
     {

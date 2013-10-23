@@ -16,7 +16,7 @@ class Economy extends Steam
      * @param string $language
      *
      * @return array
-     * @throws Exception\InsufficientParameters
+     * @throws InsufficientParameters
      */
     public function getAssetClassInfo(array $classIds = array(), $language = 'en')
     {
@@ -53,7 +53,7 @@ class Economy extends Steam
      * @param string $currency
      *
      * @return array
-     * @throws Exception\InsufficientParameters
+     * @throws InsufficientParameters
      */
     public function getAssetPrices($language = 'en', $currency = null)
     {

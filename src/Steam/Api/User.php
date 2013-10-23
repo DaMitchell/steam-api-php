@@ -19,8 +19,8 @@ class User extends Steam
      * @param int $steamId
      * @param string $relationship
      *
-     * @throws Exception\NoSuchUser
      * @return array
+     * @throws NoSuchUser
      */
     public function getFriendList($steamId, $relationship = '')
     {
@@ -58,9 +58,9 @@ class User extends Steam
      * @param array $steamIds
      * @param bool $dump
      *
-     * @throws Exception\InsufficientParameters
-     * @throws Exception\NoSuchUser
      * @return array
+     * @throws InsufficientParameters
+     * @throws NoSuchUser
      */
     public function getPlayerBans($steamIds = array(), $dump = false)
     {
@@ -108,10 +108,9 @@ class User extends Steam
      *
      * @param array $steamIds
      *
-     * @throws Exception\NoSuchUser
-     * @throws Exception\InsufficientParameters
-     *
      * @return array
+     * @throws NoSuchUser
+     * @throws InsufficientParameters
      */
     public function getPlayerSummaries($steamIds)
     {
@@ -159,8 +158,8 @@ class User extends Steam
      *
      * @param int $steamId
      *
-     * @throws Exception\NoSuchUser
      * @return array
+     * @throws NoSuchUser
      */
     public function getUserGroupList($steamId)
     {

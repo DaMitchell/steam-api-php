@@ -27,7 +27,7 @@ class Apps extends Steam
      * @param int $version
      *
      * @return array
-     * @throws Exception\InsufficientParameters
+     * @throws InsufficientParameters
      */
     public function upToDateCheck($version)
     {
