@@ -2,6 +2,7 @@
 
 namespace Steam\Api;
 
+use Steam\Api\Exception\ApiNotImplementedException;
 use Steam\Api\Exception\InsufficientParameters;
 use Steam\Steam;
 
@@ -79,17 +80,21 @@ class UserStats extends Steam
 
     public function getNumberOfCurrentPlayers()
     {
+        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
     }
 
     public function getPlayerAchievements()
     {
+        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
     }
 
     public function getSchemaForGame()
     {
+        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
     }
 
     public function getUserStatsForGame()
     {
+        throw new ApiNotImplementedException(sprintf('"%s" has not been implemented'));
     }
 }
