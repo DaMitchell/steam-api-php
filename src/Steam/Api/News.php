@@ -10,7 +10,7 @@ class News extends Steam
     const ENDPOINT_BASE = 'ISteamNews/';
 
     /**
-     * http://wiki.teamfortress.com/wiki/WebAPI/GetNewsForApp
+     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetNewsForApp
      *
      * @param int $count
      * @param int $maxLength
