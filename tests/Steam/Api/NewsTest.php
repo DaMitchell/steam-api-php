@@ -49,7 +49,7 @@ class NewsTest extends \PHPUnit_Framework_TestCase
         $config = $this->getMockBuilder('\Steam\Configuration')
             ->disableOriginalConstructor()
             ->getMock();
-        $config->expects($this->once())->method('getAppId')->will($this->returnValue($appId));
+        $config->expects($this->once())->method('getAppId')->will($this->returnValue(null));
 
         $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
             ->disableOriginalConstructor()
