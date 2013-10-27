@@ -24,8 +24,6 @@ class User extends Steam
      */
     public function getFriendList($steamId, $relationship = '')
     {
-        $url = self::ENDPOINT_BASE . 'GetFriendList/v0001/';
-
         if (!is_numeric($steamId))
         {
             $resolvedUrl = $this->resolveVanityUrl($steamId);
@@ -40,16 +38,18 @@ class User extends Steam
             }
         }
 
-        $requestParams = array(
+        $params = array(
             'steamid' => $steamId
         );
 
         if ($relationship != '')
         {
-            $requestParams['relationship'] = $relationship;
+            $params['relationship'] = $relationship;
         }
 
-        return $this->getAdapter()->request($url, $requestParams)->getParsedBody();
+        $url = self::ENDPOINT_BASE . 'GetFriendList/v0001/';
+
+        return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 
     /**
@@ -65,9 +65,8 @@ class User extends Steam
     public function getPlayerBans($steamIds = array(), $dump = false)
     {
         $notExistsUsers = array();
-        $url = self::ENDPOINT_BASE . 'GetPlayerBans/v1/';
 
-        if (count($steamIds) > 0)
+        if(count($steamIds) > 0)
         {
             foreach ($steamIds as $key => $id)
             {
@@ -91,16 +90,18 @@ class User extends Steam
             throw new InsufficientParameters('You need to pass at least one steam id');
         }
 
-        if (count($notExistsUsers) > 0)
+        if(count($notExistsUsers) > 0)
         {
             throw new NoSuchUser(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
         }
 
-        $requestParams = array(
+        $params = array(
             'steamids' => join(',', $steamIds)
         );
 
-        return $this->getAdapter()->request($url, $requestParams)->getParsedBody();
+        $url = self::ENDPOINT_BASE . 'GetPlayerBans/v1/';
+
+        return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 
     /**
@@ -115,7 +116,6 @@ class User extends Steam
     public function getPlayerSummaries($steamIds)
     {
         $notExistsUsers = array();
-        $url = self::ENDPOINT_BASE . 'GetPlayerSummaries/v0002/';
 
         if (count($steamIds) > 0)
         {
@@ -146,11 +146,13 @@ class User extends Steam
             throw new NoSuchUser(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
         }
 
-        $requestParams = array(
+        $params = array(
             'steamids' => join(',', $steamIds)
         );
 
-        return $this->getAdapter()->request($url, $requestParams)->getParsedBody();
+        $url = self::ENDPOINT_BASE . 'GetPlayerSummaries/v0002/';
+
+        return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 
     /**
@@ -163,8 +165,6 @@ class User extends Steam
      */
     public function getUserGroupList($steamId)
     {
-        $url = self::ENDPOINT_BASE . 'GetUserGroupList/v1/';
-
         if (!is_numeric($steamId))
         {
             $resolvedUrl = $this->resolveVanityUrl($steamId);
@@ -179,11 +179,13 @@ class User extends Steam
             }
         }
 
-        $requestParams = array(
+        $params = array(
             'steamid' => $steamId
         );
 
-        return $this->getAdapter()->request($url, $requestParams)->getParsedBody();
+        $url = self::ENDPOINT_BASE . 'GetUserGroupList/v1/';
+
+        return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
 
     /**
@@ -195,11 +197,11 @@ class User extends Steam
      */
     public function resolveVanityUrl($vanityUrl)
     {
-        $url = self::ENDPOINT_BASE . 'ResolveVanityURL/v0001/';
-
         $params = array(
             'vanityurl' => $vanityUrl,
         );
+
+        $url = self::ENDPOINT_BASE . 'ResolveVanityURL/v0001/';
 
         return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
