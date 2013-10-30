@@ -52,19 +52,13 @@ class Items extends Steam
     }
 
     /**
-     * @param string $language
-     *
      * @return array
      */
-    public function getSchema($language)
+    public function getSchema()
     {
-        $params = array(
-            'language' => $language
-        );
-
         $url = $this->getEndPoint() . 'GetSchema/v0001';
 
-        return $this->getAdapter()->request($url, $params)->getParsedBody();
+        return $this->getAdapter()->request($url)->getParsedBody();
     }
 
     /**
@@ -78,20 +72,15 @@ class Items extends Steam
     }
 
     /**
-     * @param string $language
-     *
      * @return array
      */
-    public function getStoreMetadata($language)
+    public function getStoreMetadata()
     {
-        $params = array(
-            'language' => $language
-        );
-
         $url = $this->getEndPoint() . 'GetSchema/v0001';
 
-        return $this->getAdapter()->request($url, $params)->getParsedBody();
+        return $this->getAdapter()->request($url)->getParsedBody();
     }
+
 
     public function getStoreStatus()
     {

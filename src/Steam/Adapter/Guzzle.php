@@ -21,10 +21,16 @@ class Guzzle extends AdapterAbstract implements AdapterInterface
     public function request($url, array $params = array())
     {
         $key = $this->getConfig()->getSteamKey();
+        $language = $this->getConfig()->getLanguage();
 
         if(!empty($key))
         {
             $params['key'] = $key;
+        }
+
+        if(!empty($language))
+        {
+            $params['language'] = $language;
         }
 
         $url .= '?' . http_build_query($params);

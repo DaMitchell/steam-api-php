@@ -4,6 +4,7 @@ namespace Steam;
 
 use Steam\Adapter\AdapterInterface;
 use Steam\Api\Exception\NoAdapterSetException;
+use Steam\Api\Exception\InsufficientParameters;
 
 abstract class Steam
 {
@@ -36,4 +37,5 @@ abstract class Steam
 
         return $this->_adapter;
     }
+
 }

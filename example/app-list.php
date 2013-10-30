@@ -18,11 +18,14 @@ $adapter->setSerializer(JMS\Serializer\SerializerBuilder::create()->build());
 $apps = new Apps();
 $apps->setAdapter($adapter);
 
-try {
-    //$result = $apps->upToDateCheck(1);
-    $result = $apps->getAppList();
+try
+{
+    $result = $apps->upToDateCheck(1);
+    //$result = $apps->getAppList();
     var_dump($result);
-} catch (Guzzle\Http\Exception\ClientErrorResponseException $e) {
+}
+catch(Guzzle\Http\Exception\ClientErrorResponseException $e)
+{
     var_dump($e->getRequest()->getUrl());
     var_dump($e->getResponse()->getBody(true));
 }

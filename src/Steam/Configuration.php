@@ -11,6 +11,7 @@ class Configuration
      */
     protected $_options = array(
         'steamKey' => '',
+        'language' => '',
         'appId' => null
     );
 
@@ -63,6 +64,22 @@ class Configuration
     {
         $this->_options['appId'] = (int) $appId;
         return $this;
+    }
+
+    /**
+     * @param string $language
+     *
+     * @return $this
+     */
+    public function setLanguage($language)
+    {
+        $this->_options['language'] = $language;
+        return $this;
+    }
+
+    public function getLanguage()
+    {
+        return $this->_options['language'];
     }
 
     /**

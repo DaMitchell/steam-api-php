@@ -13,12 +13,11 @@ class Economy extends Steam
      * @link http://wiki.teamfortress.com/wiki/WebAPI/GetAssetClassInfo
      *
      * @param array $classIds
-     * @param string $language
      *
      * @return array
      * @throws InsufficientParameters
      */
-    public function getAssetClassInfo(array $classIds = array(), $language = 'en')
+    public function getAssetClassInfo(array $classIds = array())
     {
         $appId = $this->getAdapter()->getConfig()->getAppId();
 
@@ -29,7 +28,6 @@ class Economy extends Steam
 
         $params = array(
             'appid' => $appId,
-            'language' => $language,
             'class_count' => count($classIds),
         );
 
@@ -49,13 +47,12 @@ class Economy extends Steam
     /**
      * @link http://wiki.teamfortress.com/wiki/WebAPI/GetAssetPrices
      *
-     * @param string $language
      * @param string $currency
      *
      * @return array
      * @throws InsufficientParameters
      */
-    public function getAssetPrices($language = 'en', $currency = null)
+    public function getAssetPrices($currency = null)
     {
         $appId = $this->getAdapter()->getConfig()->getAppId();
 
@@ -66,7 +63,6 @@ class Economy extends Steam
 
         $params = array(
             'appid' => $appId,
-            'language' => $language,
         );
 
         if(!is_null($currency))
