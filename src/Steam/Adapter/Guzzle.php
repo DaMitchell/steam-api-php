@@ -35,6 +35,8 @@ class Guzzle extends AdapterAbstract implements AdapterInterface
 
         $url .= '?' . http_build_query($params);
 
+        var_dump($url);
+
         $this->_rawBody = $this->getClient()->get($url)->send()->getBody();
 
         return $this;

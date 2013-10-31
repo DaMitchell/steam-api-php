@@ -29,7 +29,7 @@ class Version extends Steam
                 throw new InsufficientParameters('You need to set a appId in the config to use this method');
             }
 
-            $this->_endpoint = str_replace(self::ENDPOINT_BASE, '{id}', $appId);
+            $this->_endpoint = str_replace('{id}', $appId, self::ENDPOINT_BASE);
         }
 
         return $this->_endpoint;
