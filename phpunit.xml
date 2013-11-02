@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="./tests/bootstrap.php" colors="true">
     <testsuites>
-        <testsuite name="Steam Tests">
-            <directory>./tests/Steam</directory>
+        <testsuite name="Steam Functional Tests">
+            <directory>./tests/functional/Steam</directory>
+        </testsuite>
+        <testsuite name="Steam Integration Tests">
+            <directory>./tests/integration/Steam</directory>
         </testsuite>
     </testsuites>
 
