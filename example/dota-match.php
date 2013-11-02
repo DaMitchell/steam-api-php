@@ -5,6 +5,7 @@ include_once __DIR__ . '/../vendor/autoload.php';
 
 use Steam\Configuration;
 use Steam\Api\Dota2\Match;
+use Steam\Api\Dota2\Match\HistoryConfiguration;
 
 $options = array(
     'steamKey' => 'A88F8BADC002DCE760B1F9D095B8FB3C',
@@ -21,7 +22,12 @@ $match->setAdapter($adapter);
 
 try
 {
-    $result = $match->getMatchDetails(365171342);
+    //$result = $match->getMatchDetails(365171342);
+    $result = $match->getMatchHistory(new HistoryConfiguration(array(
+        HistoryConfiguration::PLAYER_NAME => 'Vestri',
+        HistoryConfiguration::MATCHES_REQUESTED => 1
+    )));
+
     var_dump($result);
 }
 catch(Guzzle\Http\Exception\ClientErrorResponseException $e)

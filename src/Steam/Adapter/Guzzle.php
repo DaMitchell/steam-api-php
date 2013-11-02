@@ -16,7 +16,7 @@ class Guzzle extends AdapterAbstract implements AdapterInterface
      * @param string $url
      * @param array $params
      *
-     * @return AdapterInterface
+     * @return Guzzle
      */
     public function request($url, array $params = array())
     {
@@ -34,8 +34,6 @@ class Guzzle extends AdapterAbstract implements AdapterInterface
         }
 
         $url .= '?' . http_build_query($params);
-
-        var_dump($url);
 
         $this->_rawBody = $this->getClient()->get($url)->send()->getBody();
 
