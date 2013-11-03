@@ -44,7 +44,7 @@ class News extends Steam
 
         if(!is_null($endDate))
         {
-            $params['enddata'] = $endDate;
+            $params['enddate'] = $endDate;
         }
 
         $url = self::ENDPOINT_BASE . 'GetNewsForApp/v0002';
