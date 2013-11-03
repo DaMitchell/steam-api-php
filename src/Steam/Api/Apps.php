@@ -16,7 +16,7 @@ class Apps extends Steam
      */
     public function getAppList()
     {
-        $url = self::ENDPOINT_BASE . 'GetAppList/v2/';
+        $url = self::ENDPOINT_BASE . 'GetAppList/v2';
 
         return $this->getAdapter()->request($url)->getParsedBody();
     }

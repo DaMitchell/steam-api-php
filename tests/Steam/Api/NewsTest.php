@@ -1,5 +1,5 @@
 <?php
-namespace Steam;
+namespace Steam\Api;
 
 use Steam\Api\News;
 

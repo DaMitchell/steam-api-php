@@ -1,41 +1,104 @@
 <?php
-namespace Steam;
+namespace Steam\Api;
 
 use Steam\Api\Apps;
+use Steam\SteamTestCase;
 
-class AppsTest extends \PHPUnit_Framework_TestCase
+class AppsTest extends SteamTestCase
 {
     public function testGetAppList()
     {
         $result = array(
-            'applist' => array(
-                'apps' => array(
-                    array(
-                        'appid' => 9568333,
-                        'name' => 'app test',
-                    ),
-                    array(
-                        'appid' => 9568333,
-                        'name' => 'app test 2',
-                    ),
-                )
-            )
+            'request' => array(),
         );
 
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+        $this->_adapterMock->expects($this->once())->method('request')->with('ISteamApps/GetAppList/v2');
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
 
         $apps = new Apps();
-        $apps->setAdapter($mock);
-        $appList = $apps->getAppList();
-        $this->assertEquals($result, $appList);
+        $apps->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $apps->getAppList());
     }
 
-    public function testUpToDateCheck()
+    /**
+     * @expectedException \Steam\Api\Exception\InsufficientParameters
+     */
+    public function testUpToDateCheckWillThrowAnExceptionWhenAppIdReturnsNull()
     {
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(null));
+
+        $apps = new Apps();
+        $apps->setAdapter($this->_adapterMock);
+        $apps->upToDateCheck(12);
     }
 
+    /**
+     * @expectedException \Steam\Api\Exception\InsufficientParameters
+     */
+    public function testUpToDateCheckWillThrowAnExceptionWhenAppIdReturnsZero()
+    {
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(0));
+
+        $apps = new Apps();
+        $apps->setAdapter($this->_adapterMock);
+        $apps->upToDateCheck(12);
+    }
+
+    /**
+     * @expectedException \Steam\Api\Exception\InsufficientParameters
+     */
+    public function testUpToDateCheckWillThrowAnExceptionWhenAppIdReturnsFalse()
+    {
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(false));
+
+        $apps = new Apps();
+        $apps->setAdapter($this->_adapterMock);
+        $apps->upToDateCheck(12);
+    }
+
+    /**
+     * @expectedException \Steam\Api\Exception\InsufficientParameters
+     */
+    public function testUpToDateCheckWillThrowAnExceptionWhenAppIdReturnsEmptyArray()
+    {
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(array()));
+
+        $apps = new Apps();
+        $apps->setAdapter($this->_adapterMock);
+        $apps->upToDateCheck(12);
+    }
+
+    /**
+     * @expectedException \Steam\Api\Exception\InsufficientParameters
+     */
+    public function testUpToDateCheckWillThrowAnExceptionWhenAppIdReturnsEmptyString()
+    {
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(''));
+
+        $apps = new Apps();
+        $apps->setAdapter($this->_adapterMock);
+        $apps->upToDateCheck(12);
+    }
+
+    public function testUpToDateCheckWillReturnResponseWhenCalledCorrectly()
+    {
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(570));
+
+        $this->_adapterMock->expects($this->once())->method('request')->with('ISteamApps/UpToDateCheck/v1', array(
+            'appid' => 570,
+            'version' => 12
+        ));
+
+        $result = array(
+            'request' => array(),
+        );
+
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+
+        $apps = new Apps();
+        $apps->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $apps->upToDateCheck(12));
+    }
 }
