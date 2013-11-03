@@ -1,8 +1,9 @@
 <?php
 
-namespace Steam;
+namespace Steam\Api;
  
 use Steam\Api\Dota2;
+use Steam\SteamTestCase;
 
 class Dota2Test extends SteamTestCase
 {

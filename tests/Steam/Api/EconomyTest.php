@@ -2,107 +2,103 @@
 namespace Steam\Api;
 
 use Steam\Api\Economy;
+use Steam\SteamTestCase;
 
-class EconomyTest extends \PHPUnit_Framework_TestCase
+class EconomyTest extends SteamTestCase
 {
-    public function testGetAssetClassInfo()
+    /**
+     * @expectedException \Steam\Api\Exception\InsufficientParameters
+     */
+    public function testGetAssetClassInfoWillThrowExceptionIfNoAppIdIsSet()
     {
-        $result = array(
-            'result' => array(
-                'success' => true,
-                'classnumber' => 'classnumber',
-            )
-        );
-
-        $config = $this->getMockBuilder('\Steam\Configuration')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $config->expects($this->once())->method('getAppId')->will($this->returnValue(1));
-
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
-        $mock->expects($this->once())->method('getConfig')->will($this->returnValue($config));
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(null));
 
         $economy = new Economy();
-        $economy->setAdapter($mock);
-        $classInfo = $economy->getAssetClassInfo(array(1,2,3));
-        $this->assertEquals($result, $classInfo);
+        $economy->setAdapter($this->_adapterMock);
+        $economy->getAssetClassInfo();
+    }
+
+    public function testGetAssetClassInfoWillBeCalledWithCorrectValues()
+    {
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(570));
+
+        $url = 'ISteamEconomy/GetAssetClassInfo/v0001';
+
+        $classIds = array(
+            123,
+            234,
+            345,
+        );
+
+        $params = array(
+            'appid' => 570,
+            'class_count' => 3,
+            'classid0' => 123,
+            'classid1' => 234,
+            'classid2' => 345,
+        );
+
+        $result = array('result' => array());
+
+        $this->_adapterMock->expects($this->once())->method('request')->with($url, $params);
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+
+        $economy = new Economy();
+        $economy->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $economy->getAssetClassInfo($classIds));
     }
 
     /**
      * @expectedException \Steam\Api\Exception\InsufficientParameters
      */
-    public function testGetAssetClassInfoException()
+    public function testGetAssetPricesWillThrowExceptionIfNoAppIdIsSet()
     {
-        $config = $this->getMockBuilder('\Steam\Configuration')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $config->expects($this->once())->method('getAppId')->will($this->returnValue(null));
-
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('getConfig')->will($this->returnValue($config));
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(null));
 
         $economy = new Economy();
-        $economy->setAdapter($mock);
-        $economy->getAssetClassInfo(array(1,2,3));
-    }
-
-    public function testGetAssetPrices()
-    {
-        $result = array(
-            'result' => array(
-                'success' => true,
-                'assets' => array(
-                    'classid' => 42,
-                    'tags' => array(
-                        'tag1',
-                        'tag2',
-                    ),
-                ),
-            ),
-        );
-
-        $config = $this->getMockBuilder('\Steam\Configuration')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $config->expects($this->once())->method('getAppId')->will($this->returnValue(1));
-
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
-        $mock->expects($this->once())->method('getConfig')->will($this->returnValue($config));
-
-        $economy = new Economy();
-        $economy->setAdapter($mock);
-        $assetPrices = $economy->getAssetPrices();
-        $this->assertEquals($result, $assetPrices);
-    }
-
-    /**
-     * @expectedException \Steam\Api\Exception\InsufficientParameters
-     */
-    public function testGetAssetPricesException()
-    {
-        $config = $this->getMockBuilder('\Steam\Configuration')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $config->expects($this->once())->method('getAppId')->will($this->returnValue(null));
-
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('getConfig')->will($this->returnValue($config));
-
-        $economy = new Economy();
-        $economy->setAdapter($mock);
+        $economy->setAdapter($this->_adapterMock);
         $economy->getAssetPrices();
     }
 
+    public function testGetAssetPricesWillBeCalledWithCorrectDataNoCurrencySet()
+    {
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(570));
+
+        $url = 'ISteamEconomy/GetAssetPrices/v0001';
+        $params = array(
+            'appid' => 570,
+        );
+
+        $result = array('result' => array());
+
+        $this->_adapterMock->expects($this->once())->method('request')->with($url, $params);
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+
+        $economy = new Economy();
+        $economy->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $economy->getAssetPrices());
+    }
+
+    public function testGetAssetPricesWillBeCalledWithCorrectDataWithCurrencySet()
+    {
+        $this->_configMock->expects($this->once())->method('getAppId')->will($this->returnValue(570));
+
+        $url = 'ISteamEconomy/GetAssetPrices/v0001';
+        $params = array(
+            'appid' => 570,
+            'currency' => 'EUR'
+        );
+
+        $result = array('result' => array());
+
+        $this->_adapterMock->expects($this->once())->method('request')->with($url, $params);
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+
+        $economy = new Economy();
+        $economy->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $economy->getAssetPrices('EUR'));
+    }
 }
