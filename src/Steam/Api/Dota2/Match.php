@@ -194,7 +194,7 @@ class Match extends Steam
      *
      * @return array
      */
-    public function GetTournamentPlayerStats($accountId, $leagueId = null, $heroId = null, $timeFrame = null, $matchId = null)
+    public function getTournamentPlayerStats($accountId, $leagueId = null, $heroId = null, $timeFrame = null, $matchId = null)
     {
         $params = array(
             'account_id' => $accountId,
