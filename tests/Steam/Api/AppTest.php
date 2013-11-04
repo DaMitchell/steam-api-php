@@ -22,6 +22,15 @@ class AppsTest extends SteamTestCase
     }
 
     /**
+     * @expectedException \Steam\Api\Exception\NoAdapterSetException
+     */
+    public function testExceptionIsThrownIfNoAdapterIsSet()
+    {
+        $apps = new Apps();
+        $apps->upToDateCheck(12);
+    }
+
+    /**
      * @expectedException \Steam\Api\Exception\InsufficientParameters
      */
     public function testUpToDateCheckWillThrowAnExceptionWhenAppIdReturnsNull()
