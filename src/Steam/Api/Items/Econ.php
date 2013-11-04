@@ -1,11 +1,11 @@
 <?php
 
-namespace Steam\Api\Econ;
+namespace Steam\Api\Items;
  
 use Steam\Api\Exception\InsufficientParameters;
 use Steam\Steam;
 
-class Items extends Steam
+class Econ extends Steam
 {
     const ENDPOINT_BASE = 'IEconItems_{id}/';
 
@@ -76,7 +76,7 @@ class Items extends Steam
      */
     public function getStoreMetadata()
     {
-        $url = $this->getEndPoint() . 'GetSchema/v0001';
+        $url = $this->getEndPoint() . 'GetStoreMetaData/v0001';
 
         return $this->getAdapter()->request($url)->getParsedBody();
     }
