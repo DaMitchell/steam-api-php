@@ -1,6 +1,6 @@
 <?php
 
-namespace Steam\Api\Econ;
+namespace Steam\Api\Items;
  
 use Steam\Api\Exception\ApiNotImplementedException;
 use Steam\Api\Exception\InsufficientParameters;
@@ -8,7 +8,7 @@ use Steam\Steam;
 
 class Promos extends Steam
 {
-    const ENDPOINT_BASE = 'IEconItems_{id}/';
+    const ENDPOINT_BASE = 'ITFPromos_{id}/';
 
     /**
      * @var string
