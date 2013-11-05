@@ -38,3 +38,9 @@ Adapters
 Adapters here are the classes that make the requests to the Steam API. They must implement `\Steam\Adapter\AdapterInterface`. They can also, but are not required to, extend `\Steam\Adapter\AdapterAbstract`, which just has some useful properties and methods.
 
 I have implemented one adapter so far which makes use of the [https://github.com/guzzle/guzzle](Guzzle) library. The constructor of the class takes in the configuration object describes in the previous section. Another library the Guzzle adapter makes use of is the [http://jmsyst.com/libs/serializer](serializer) from Johannes Schmitt.
+
+Endpoints
+---------
+Obviously each endpoint is described in a class matching up to what is described in the Steam API. Each one of those classes then has the adapter set using the `setAdapter` method which will handle all the magic of getting the response.
+
+At the minute each method will called `getParsedBody`, which I am not sure everyone will want but at the minute it makes sense to have it so you get the deserialised version of the response. In future releases I may change it so the adapter is returned instead.
