@@ -13,7 +13,7 @@ use Steam\Configuration;
 use Steam\Api\User;
 
 $config = new Configuration(array(
-    'steamKey' => {STEAM_KEY},
+    'steamKey' => '{STEAM_KEY}',
 ));
 
 $adapter = new Guzzle($config);
