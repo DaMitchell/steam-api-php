@@ -2,296 +2,229 @@
 namespace Steam\Api;
 
 use Steam\Api\User;
+use Steam\SteamTestCase;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends SteamTestCase
 {
-    public function testGetFriendList()
+    public function testResolvingUrls()
     {
         $result = array(
-            'friendslist' => array(
-                array(
-                    'steamid' => 9568333,
-                    'relationship' => 'friend',
-                    'friend_since' => 1234567890111,
-                ),
-                array(
-                    'steamid' => 9568333,
-                    'relationship' => 'friend',
-                    'friend_since' => 1234567890111,
-                ),
-                array(
-                    'steamid' => 9568333,
-                    'relationship' => 'friend',
-                    'friend_since' => 1234567890111,
-                ),
-            )
+            'request' => array(),
         );
 
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+        $vanityUrl = 'Vestri';
+
+        $this->_adapterMock->expects($this->once())->method('request')->with('ISteamUser/ResolveVanityURL/v0001', array(
+            'vanityurl' => $vanityUrl
+        ));
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
 
         $user = new User();
-        $user->setAdapter($mock);
-        $friends = $user->getFriendList(123);
-        $this->assertEquals($result, $friends);
+        $user->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $user->resolveVanityUrl($vanityUrl));
     }
 
     /**
      * @expectedException \Steam\Api\Exception\NoSuchUser
      */
-    public function testGetFriendListException()
-    {
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-
-        $user = new User();
-        $user->setAdapter($mock);
-        $user->getFriendList('%%%soft-kitty-bad-kitty-ball-of-not-controlled-anger-with-dude%%%');
-    }
-
-    public function testGetPlayerBans()
+    public function testGetFriendListWithNoRelationshipNoSuchUserExceptionThrown()
     {
         $result = array(
-            'players' => array(
-                array(
-                    'steamid' => 9568333,
-                    'CommunityBanned' => true,
-                    'VACBanned' => false,
-                    'EconomyBan' => 'none',
-                ),
-                array(
-                    'steamid' => 9568333,
-                    'CommunityBanned' => true,
-                    'VACBanned' => false,
-                    'EconomyBan' => 'none',
-                ),
-                array(
-                    'steamid' => 9568333,
-                    'CommunityBanned' => true,
-                    'VACBanned' => false,
-                    'EconomyBan' => 'none',
-                ),
-                array(
-                    'steamid' => 9568333,
-                    'CommunityBanned' => true,
-                    'VACBanned' => false,
-                    'EconomyBan' => 'none',
-                ),
-            )
+            'request' => array(),
         );
 
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+        $steamId = 'Vestri';
+
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->onConsecutiveCalls(
+            array('response' => array('success' => 0))
+        ));
 
         $user = new User();
-        $user->setAdapter($mock);
-        $bans = $user->getPlayerBans(array(111));
-        $this->assertEquals($result, $bans);
+        $user->setAdapter($this->_adapterMock);
+
+        $user->getFriendList($steamId);
     }
 
-    /**
-     * @expectedException \Steam\Api\Exception\NoSuchUser
-     */
-    public function testGetPlayerBansUserNotExistsException()
+    public function testGetFriendListWithNoRelationshipCalledWithCorrectParams()
     {
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
+        $result = array(
+            'request' => array(),
+        );
+
+        $steamIdString = 'Vestri';
+        $steamIdNumber = 123123123;
+
+        $this->_adapterMock->expects($this->exactly(2))->method('getParsedBody')->will($this->onConsecutiveCalls(
+            array('response' => array('success' => 1, 'steamid' => $steamIdNumber)),
+            $result
+        ));
+
+        $this->_adapterMock->expects($this->at(2))->method('request')->with('ISteamUser/GetFriendList/v0001', array(
+            'steamid' => $steamIdNumber,
+            'relationship' => 'all'
+        ));
 
         $user = new User();
-        $user->setAdapter($mock);
-        $user->GetPlayerBans(array('%%%soft-kitty-bad-kitty-ball-of-not-controlled-anger-with-dude%%%'));
+        $user->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $user->getFriendList($steamIdString, 'all'));
     }
 
     /**
      * @expectedException \Steam\Api\Exception\InsufficientParameters
      */
-    public function testGetPlayerBansInsufficientParametersException()
+    public function testGetPlayerBansExpectExceptionWithEmptyArrayOfIds()
     {
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $user = new User();
-        $user->setAdapter($mock);
-        $user->GetPlayerBans(array());
-    }
-
-    public function testGetPlayerSummaries()
-    {
-        $result = array(
-            'response'=> array(
-                'players' => array(
-                    array(
-                        'steamid' => 9568333,
-                        'communityvisibilitystate' => 5,
-                        'profilestate' => 1,
-                        'personaname' => 'none',
-                        'lastlogoff' => 1234567890,
-                        'profileurl' => 'url',
-                        'avatar' => 'url',
-                        'avatarmedium' => 'url',
-                        'avatarfull' => 'url',
-                        'personastate' => 1,
-                    ),
-                    array(
-                        'steamid' => 9568333,
-                        'communityvisibilitystate' => 5,
-                        'profilestate' => 1,
-                        'personaname' => 'none',
-                        'lastlogoff' => 1234567890,
-                        'profileurl' => 'url',
-                        'avatar' => 'url',
-                        'avatarmedium' => 'url',
-                        'avatarfull' => 'url',
-                        'personastate' => 1,
-                    ),
-                    array(
-                        'steamid' => 9568333,
-                        'communityvisibilitystate' => 5,
-                        'profilestate' => 1,
-                        'personaname' => 'none',
-                        'lastlogoff' => 1234567890,
-                        'profileurl' => 'url',
-                        'avatar' => 'url',
-                        'avatarmedium' => 'url',
-                        'avatarfull' => 'url',
-                        'personastate' => 1,
-                    ),
-                    array(
-                        'steamid' => 9568333,
-                        'communityvisibilitystate' => 5,
-                        'profilestate' => 1,
-                        'personaname' => 'none',
-                        'lastlogoff' => 1234567890,
-                        'profileurl' => 'url',
-                        'avatar' => 'url',
-                        'avatarmedium' => 'url',
-                        'avatarfull' => 'url',
-                        'personastate' => 1,
-                    ),
-                )
-            )
-        );
-
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
-
-        $user = new User();
-        $user->setAdapter($mock);
-        $sum = $user->getPlayerSummaries(array(111));
-        $this->assertEquals($result, $sum);
+        $user->getPlayerBans(array());
     }
 
     /**
      * @expectedException \Steam\Api\Exception\NoSuchUser
      */
-    public function testGetPlayerSummariesException()
+    public function testGetPlayerBansWhenResolvingSteamIdsAndTheyAreInvalid()
     {
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
+        $steamIds = array(
+            'Vestri'
+        );
+
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->onConsecutiveCalls(
+            array('response' => array('success' => 0))
+        ));
 
         $user = new User();
-        $user->setAdapter($mock);
-        $user->getPlayerSummaries(array('%%%soft-kitty-bad-kitty-ball-of-not-controlled-anger-with-dude%%%'));
+        $user->setAdapter($this->_adapterMock);
+
+        $user->getPlayerBans($steamIds);
+    }
+
+    public function testGetPLayerBansCalledWithCorrectParams()
+    {
+        $result = array(
+            'request' => array(),
+        );
+
+        $steamIds = array(
+            'Vestri',
+            'Visio',
+        );
+
+        $steamIdNumber1 = 123123123;
+        $steamIdNumber2 = 345345345;
+
+        $this->_adapterMock->expects($this->exactly(3))->method('getParsedBody')->will($this->onConsecutiveCalls(
+            array('response' => array('success' => 1, 'steamid' => $steamIdNumber1)),
+            array('response' => array('success' => 1, 'steamid' => $steamIdNumber2)),
+            $result
+        ));
+
+        $this->_adapterMock->expects($this->at(4))->method('request')->with('ISteamUser/GetPlayerBans/v1', array(
+            'steamids' => $steamIdNumber1 . ',' . $steamIdNumber2,
+        ));
+
+        $user = new User();
+        $user->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $user->getPlayerBans($steamIds));
     }
 
     /**
      * @expectedException \Steam\Api\Exception\InsufficientParameters
      */
-    public function testGetPlayerSummariesInsufficientParametersException()
+    public function testGetPlayerSummariesExpectExceptionWithEmptyArrayOfIds()
     {
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $user = new User();
-        $user->setAdapter($mock);
-        $user->GetPlayerSummaries(array());
-    }
-
-    public function testGetUserGroupList()
-    {
-        $result = array(
-            'result' => 1,
-            'groups' => array(
-                array(
-                    'guid' => 9568333,
-                ),
-                array(
-                    'guid' => 9568333,
-                ),
-                array(
-                    'guid' => 9568333,
-                ),
-                array(
-                    'guid' => 9568333,
-                ),
-            )
-        );
-
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
-
-        $user = new User();
-        $user->setAdapter($mock);
-        $groups = $user->getUserGroupList(123);
-        $this->assertEquals($result, $groups);
+        $user->getPlayerSummaries(array());
     }
 
     /**
      * @expectedException \Steam\Api\Exception\NoSuchUser
      */
-    public function testGetUserGroupListException()
+    public function testGetPlayerSummariesWhenResolvingSteamIdsAndTheyAreInvalid()
     {
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-
-        $user = new User();
-        $user->setAdapter($mock);
-        $user->getUserGroupList('%%%soft-kitty-bad-kitty-ball-of-not-controlled-anger-with-dude%%%');
-    }
-
-    public function testResolveVanityUrl()
-    {
-        $result = array(
-            'response' => array(
-                array(
-                    'success' => 1,
-                    'steamid ' => 9568333,
-                ),
-            )
+        $steamIds = array(
+            'Vestri'
         );
 
-        $mock = $this->getMockBuilder('\Steam\Adapter\Guzzle')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mock->expects($this->once())->method('request')->will($this->returnSelf());
-        $mock->expects($this->once())->method('getParsedBody')->will($this->returnValue($result));
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->onConsecutiveCalls(
+            array('response' => array('success' => 0))
+        ));
 
         $user = new User();
-        $user->setAdapter($mock);
-        $steamId = $user->resolveVanityUrl('test');
-        $this->assertEquals($result, $steamId);
+        $user->setAdapter($this->_adapterMock);
+
+        $user->getPlayerSummaries($steamIds);
     }
 
+    public function testGetPlayerSummariesCalledWithCorrectParams()
+    {
+        $result = array(
+            'request' => array(),
+        );
+
+        $steamIds = array(
+            'Vestri',
+            'Visio',
+        );
+
+        $steamIdNumber1 = 123123123;
+        $steamIdNumber2 = 345345345;
+
+        $this->_adapterMock->expects($this->exactly(3))->method('getParsedBody')->will($this->onConsecutiveCalls(
+            array('response' => array('success' => 1, 'steamid' => $steamIdNumber1)),
+            array('response' => array('success' => 1, 'steamid' => $steamIdNumber2)),
+            $result
+        ));
+
+        $this->_adapterMock->expects($this->at(4))->method('request')->with('ISteamUser/GetPlayerSummaries/v0002', array(
+            'steamids' => $steamIdNumber1 . ',' . $steamIdNumber2,
+        ));
+
+        $user = new User();
+        $user->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $user->getPlayerSummaries($steamIds));
+    }
+
+    /**
+     * @expectedException \Steam\Api\Exception\NoSuchUser
+     */
+    public function testGetUserGroupListWithNoRelationshipNoSuchUserExceptionThrown()
+    {
+        $steamId = 'Vestri';
+
+        $this->_adapterMock->expects($this->once())->method('getParsedBody')->will($this->onConsecutiveCalls(
+            array('response' => array('success' => 0))
+        ));
+
+        $user = new User();
+        $user->setAdapter($this->_adapterMock);
+
+        $user->getUserGroupList($steamId);
+    }
+
+    public function testGetUserGroupListWithNoRelationshipCalledWithCorrectParams()
+    {
+        $result = array(
+            'request' => array(),
+        );
+
+        $steamIdString = 'Vestri';
+        $steamIdNumber = 123123123;
+
+        $this->_adapterMock->expects($this->exactly(2))->method('getParsedBody')->will($this->onConsecutiveCalls(
+            array('response' => array('success' => 1, 'steamid' => $steamIdNumber)),
+            $result
+        ));
+
+        $this->_adapterMock->expects($this->at(2))->method('request')->with('ISteamUser/GetUserGroupList/v1', array(
+            'steamid' => $steamIdNumber
+        ));
+
+        $user = new User();
+        $user->setAdapter($this->_adapterMock);
+
+        $this->assertEquals($result, $user->getUserGroupList($steamIdString));
+    }
 }

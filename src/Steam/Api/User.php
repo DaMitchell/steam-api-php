@@ -47,7 +47,7 @@ class User extends Steam
             $params['relationship'] = $relationship;
         }
 
-        $url = self::ENDPOINT_BASE . 'GetFriendList/v0001/';
+        $url = self::ENDPOINT_BASE . 'GetFriendList/v0001';
 
         return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
@@ -56,13 +56,12 @@ class User extends Steam
      * @link http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerBans
      *
      * @param array $steamIds
-     * @param bool $dump
      *
      * @return array
      * @throws InsufficientParameters
      * @throws NoSuchUser
      */
-    public function getPlayerBans($steamIds = array(), $dump = false)
+    public function getPlayerBans($steamIds = array())
     {
         $notExistsUsers = array();
 
@@ -84,22 +83,22 @@ class User extends Steam
                     }
                 }
             }
+
+            if(count($notExistsUsers) > 0)
+            {
+                throw new NoSuchUser(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
+            }
         }
         else
         {
             throw new InsufficientParameters('You need to pass at least one steam id');
         }
 
-        if(count($notExistsUsers) > 0)
-        {
-            throw new NoSuchUser(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
-        }
-
         $params = array(
             'steamids' => join(',', $steamIds)
         );
 
-        $url = self::ENDPOINT_BASE . 'GetPlayerBans/v1/';
+        $url = self::ENDPOINT_BASE . 'GetPlayerBans/v1';
 
         return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
@@ -135,22 +134,22 @@ class User extends Steam
                     }
                 }
             }
+
+            if (count($notExistsUsers) > 0)
+            {
+                throw new NoSuchUser(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
+            }
         }
         else
         {
             throw new InsufficientParameters('You need to pass at least one steam id');
         }
 
-        if (count($notExistsUsers) > 0)
-        {
-            throw new NoSuchUser(sprintf('User(-s) with url(-s) "%s" not found', join(', ', $notExistsUsers)));
-        }
-
         $params = array(
             'steamids' => join(',', $steamIds)
         );
 
-        $url = self::ENDPOINT_BASE . 'GetPlayerSummaries/v0002/';
+        $url = self::ENDPOINT_BASE . 'GetPlayerSummaries/v0002';
 
         return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
@@ -183,7 +182,7 @@ class User extends Steam
             'steamid' => $steamId
         );
 
-        $url = self::ENDPOINT_BASE . 'GetUserGroupList/v1/';
+        $url = self::ENDPOINT_BASE . 'GetUserGroupList/v1';
 
         return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
@@ -201,7 +200,7 @@ class User extends Steam
             'vanityurl' => $vanityUrl,
         );
 
-        $url = self::ENDPOINT_BASE . 'ResolveVanityURL/v0001/';
+        $url = self::ENDPOINT_BASE . 'ResolveVanityURL/v0001';
 
         return $this->getAdapter()->request($url, $params)->getParsedBody();
     }
