@@ -4,7 +4,7 @@
     "description": "PHP wrapper for the steam web API",
     "keywords": ["steam", "dota", "api"],
     "homepage": "http://github.com/DaMitchell/steam-php-api",
-    "license": "MIT",
+    "license": "BSD-2-Clause",
     "authors": [
         {
             "name": "Dan Mitchell",
@@ -26,6 +26,12 @@
     "autoload": {
         "psr-0": {
             "Steam": "src"
+        }
+    },
+
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
         }
     }
 }
