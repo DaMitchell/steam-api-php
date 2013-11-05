@@ -33,7 +33,10 @@ class Guzzle extends AdapterAbstract implements AdapterInterface
             $params['language'] = $language;
         }
 
-        $url .= '?' . http_build_query($params);
+        if(!empty($params))
+        {
+            $url .= '?' . http_build_query($params);
+        }
 
         $this->_rawBody = $this->getClient()->get($url)->send()->getBody();
 
