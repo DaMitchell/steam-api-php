@@ -3,7 +3,7 @@
     "type": "library",
     "description": "PHP wrapper for the steam web API",
     "keywords": ["steam", "dota", "api"],
-    "homepage": "http://github.com/DaMitchell/steam-php-api",
+    "homepage": "https://github.com/DaMitchell/steam-api-php",
     "license": "BSD-2-Clause",
     "authors": [
         {
