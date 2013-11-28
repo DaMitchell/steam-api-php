@@ -104,7 +104,7 @@ class User extends Steam
     }
 
     /**
-     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerBans
+     * @link http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerSummaries
      *
      * @param array $steamIds
      *
