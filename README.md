@@ -3,6 +3,9 @@
 
 A PHP wrapper for the Steam API
 
+It would be great to hear from people that are actively using this. 
+Here is a link to Gitter [https://gitter.im/DaMitchell/steam-api-php](https://gitter.im/DaMitchell/steam-api-php).
+
 Usage
 -----
 ```php
