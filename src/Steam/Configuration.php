@@ -6,13 +6,16 @@ use Steam\Exception\InvalidConfigOptionException;
 
 class Configuration
 {
+    const STEAM_KEY = 'steam_key';
+    const LANGUAGE = 'language';
+    const APP_ID = 'app_id';
+
     /**
      * @var array
      */
     protected $_options = array(
-        'steamKey' => '',
-        'language' => '',
-        'appId' => null
+        self::STEAM_KEY => '',
+        self::LANGUAGE => '',
     );
 
     /**
@@ -43,7 +46,7 @@ class Configuration
      */
     public function setSteamKey($appKey)
     {
-        $this->_options['steamKey'] = $appKey;
+        $this->_options[self::STEAM_KEY] = $appKey;
         return $this;
     }
 
@@ -52,7 +55,7 @@ class Configuration
      */
     public function getSteamKey()
     {
-        return $this->_options['steamKey'];
+        return $this->_options[self::STEAM_KEY];
     }
 
     /**
@@ -62,8 +65,16 @@ class Configuration
      */
     public function setAppId($appId)
     {
-        $this->_options['appId'] = (int) $appId;
+        $this->_options[self::APP_ID] = (int) $appId;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAppId()
+    {
+        return $this->_options[self::APP_ID];
     }
 
     /**
@@ -73,21 +84,13 @@ class Configuration
      */
     public function setLanguage($language)
     {
-        $this->_options['language'] = $language;
+        $this->_options[self::LANGUAGE] = $language;
         return $this;
     }
 
     public function getLanguage()
     {
-        return $this->_options['language'];
-    }
-
-    /**
-     * @return int
-     */
-    public function getAppId()
-    {
-        return $this->_options['appId'];
+        return $this->_options[self::LANGUAGE];
     }
 
     /**
@@ -95,6 +98,6 @@ class Configuration
      */
     public function getBaseSteamApiUrl()
     {
-        return 'http://api.steampowered.com/';
+        return 'http://api.steampowered.com';
     }
 }

@@ -2,15 +2,15 @@
 
 namespace Steam\Adapter;
 
-use Guzzle\Http\ClientInterface;
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 
 class Guzzle extends AdapterAbstract implements AdapterInterface
 {
     /**
      * @var ClientInterface
      */
-    protected $_client = null;
+    protected $client = null;
 
     /**
      * @param string $url
@@ -48,7 +48,7 @@ class Guzzle extends AdapterAbstract implements AdapterInterface
      */
     public function setClient(ClientInterface $client)
     {
-        $this->_client = $client;
+        $this->client = $client;
     }
 
     /**
@@ -56,11 +56,11 @@ class Guzzle extends AdapterAbstract implements AdapterInterface
      */
     public function getClient()
     {
-        if(is_null($this->_client))
+        if(is_null($this->client))
         {
-            $this->_client = new Client($this->getConfig()->getBaseSteamApiUrl());
+            $this->client = new Client($this->getConfig()->getBaseSteamApiUrl());
         }
 
-        return $this->_client;
+        return $this->client;
     }
 }

@@ -2,39 +2,87 @@
 
 namespace Steam;
 
-use Steam\Adapter\AdapterInterface;
-use Steam\Api\Exception\NoAdapterSetException;
+use Steam\Command\CommandInterface;
+use Steam\Runner\RunnerInterface;
 
-abstract class Steam
+class Steam
 {
     /**
-     * @var AdapterInterface
+     * @var array
      */
-    protected $_adapter = null;
+    protected $runners = [];
 
     /**
-     * @param AdapterInterface $adapter
-     *
-     * @return Steam
+     * @var Configuration
      */
-    public function setAdapter(Adapter\AdapterInterface $adapter)
+    protected $config;
+
+    /**
+     * @param Configuration $config
+     */
+    public function __construct(Configuration $config)
     {
-        $this->_adapter = $adapter;
+        $this->config = $config;
+    }
+
+    /**
+     * @return Configuration
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param Configuration $config
+     *
+     * @return self
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
         return $this;
     }
 
     /**
-     * @throws NoAdapterSetException
-     * @return AdapterInterface
+     * @param array $runners
+     *
+     * @return self
      */
-    public function getAdapter()
+    public function addRunners(array $runners)
     {
-        if(is_null($this->_adapter))
-        {
-            throw new NoAdapterSetException('You need to set an adapter before you can use it.');
+        foreach($runners as $runner) {
+            $this->addRunner($runner);
         }
 
-        return $this->_adapter;
+        return $this;
     }
 
+    /**
+     * @param RunnerInterface $runner
+     *
+     * @return self
+     */
+    public function addRunner(RunnerInterface $runner)
+    {
+        $this->runners[] = $runner->setConfig($this->config);
+        return $this;
+    }
+
+    /**
+     * @param CommandInterface $command
+     *
+     * @return mixed
+     */
+    public function run(CommandInterface $command)
+    {
+        $result = null;
+
+        /** @var RunnerInterface $runner */
+        foreach($this->runners as $runner) {
+            $result = $runner->run($command, $result);
+        }
+
+        return $result;
+    }
 }

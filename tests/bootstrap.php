@@ -1,4 +1,4 @@
 <?php
 
 $loader = require __DIR__ . "/../vendor/autoload.php";
-$loader->add('Steam\\', __DIR__);
+$loader->addPsr4('Steam\\', __DIR__ . '/src/Steam');

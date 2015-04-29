@@ -4,3 +4,4 @@ composer.bat
 composer.phar
 *.iml
 .idea
+phpunit.xml
