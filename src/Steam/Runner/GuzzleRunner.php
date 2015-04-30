@@ -36,18 +36,26 @@ class GuzzleRunner extends AbstractRunner implements RunnerInterface
      */
     public function run(CommandInterface $command, $result = null)
     {
-        $options = [];
-        $params = $command->getParams();
+        $key = $command->getRequestMethod() === 'GET' ? 'query' : 'body';
+        $options = [$key => []];
 
-        if(!empty($params)) {
-            $key = $command->getRequestMethod() === 'GET' ? 'query' : 'body';
-            $options[$key] = $params;
+        if(!empty($params = $command->getParams())) {
+            $options[$key] = array_merge($options[$key], $params);
         }
 
+        // TODO: Possibly make this configurable. Setting this to true just adds a couple extra methods.
         $this->client->setDefaultOption('future', true);
 
-        if($this->getConfig()) {
-            $this->urlBuilder->setBaseUrl($this->getConfig()->getBaseSteamApiUrl());
+        if($config = $this->getConfig()) {
+            if(!empty($config->getSteamKey())) {
+                $options[$key]['key'] = $config->getSteamKey();
+            }
+
+            if(!empty($config->getLanguage())) {
+                $options[$key]['language'] = $config->getLanguage();
+            }
+
+            $this->urlBuilder->setBaseUrl($config->getBaseSteamApiUrl());
         }
 
         return $this->client->send($this->client->createRequest(

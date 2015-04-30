@@ -21,7 +21,9 @@ interface RunnerInterface
 
     /**
      * Run the command with the result of the previous runner.
-     * Obviously if this is the first runner then the result would be null.
+     *
+     * Obviously if this is the first runner then the result would be null. Maybe the result
+     * should be some sort of interface as well?
      *
      * @param CommandInterface $command
      * @param null $result

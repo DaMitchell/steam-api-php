@@ -5,3 +5,5 @@ composer.phar
 *.iml
 .idea
 phpunit.xml
+
+demo/steamKey.php

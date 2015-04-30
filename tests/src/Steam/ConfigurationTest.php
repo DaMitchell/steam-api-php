@@ -29,22 +29,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($steamKey, $this->configuration->getSteamKey());
     }
 
-    public function testSetAppId()
-    {
-        $appId = 123;
-
-        $this->assertInstanceOf('\Steam\Configuration', $this->configuration->setAppId($appId));
-    }
-
-    public function testGetAppId()
-    {
-        $appId = 123;
-
-        $this->configuration->setAppId($appId);
-
-        $this->assertEquals($appId, $this->configuration->getAppId());
-    }
-
     public function testGetBaseSteamApiUrl()
     {
         $steamBaseUrl = 'http://api.steampowered.com';

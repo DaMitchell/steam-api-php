@@ -16,6 +16,8 @@ class Apps
 
     const COUNTER_STRIKE_GO_BETA_ID = 710;
 
+    const COUNTER_STRIKE_GO_ID = 730;
+
     const DOTA_2_INTERNAL_TEST = 816;
 
     const PORTAL_2_BETA_ID = 841;

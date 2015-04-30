@@ -8,7 +8,6 @@ class Configuration
 {
     const STEAM_KEY = 'steam_key';
     const LANGUAGE = 'language';
-    const APP_ID = 'app_id';
 
     /**
      * @var array
@@ -56,25 +55,6 @@ class Configuration
     public function getSteamKey()
     {
         return $this->_options[self::STEAM_KEY];
-    }
-
-    /**
-     * @param int $appId
-     *
-     * @return Configuration
-     */
-    public function setAppId($appId)
-    {
-        $this->_options[self::APP_ID] = (int) $appId;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAppId()
-    {
-        return $this->_options[self::APP_ID];
     }
 
     /**
