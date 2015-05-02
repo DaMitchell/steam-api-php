@@ -4,19 +4,19 @@ namespace Steam\Command\User;
 
 use Steam\Command\CommandInterface;
 
-class GetPlayerBans implements CommandInterface
+class GetUserGroupList implements CommandInterface
 {
     /**
      * @var array
      */
-    protected $steamIds;
+    protected $steamId;
 
     /**
-     * @param array $steamIds
+     * @param array $steamId
      */
-    public function __construct(array $steamIds)
+    public function __construct($steamId)
     {
-        $this->steamIds = $steamIds;
+        $this->steamId = $steamId;
     }
 
     public function getInterface()
@@ -26,7 +26,7 @@ class GetPlayerBans implements CommandInterface
 
     public function getMethod()
     {
-        return 'GetPlayerBans';
+        return 'GetUserGroupList';
     }
 
     public function getVersion()
@@ -42,7 +42,7 @@ class GetPlayerBans implements CommandInterface
     public function getParams()
     {
         return [
-            'steamids' => implode(',', $this->steamIds)
+            'steamid' => $this->steamId,
         ];
     }
 } 

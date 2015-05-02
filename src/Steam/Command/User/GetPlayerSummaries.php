@@ -9,14 +9,14 @@ class GetPlayerSummaries implements CommandInterface
     /**
      * @var array
      */
-    protected $steamId;
+    protected $steamIds;
 
     /**
-     * @param array $steamId
+     * @param array $steamIds
      */
-    public function __construct(array $steamId)
+    public function __construct(array $steamIds)
     {
-        $this->steamId = $steamId;
+        $this->steamIds = $steamIds;
     }
 
     public function getInterface()
@@ -42,7 +42,7 @@ class GetPlayerSummaries implements CommandInterface
     public function getParams()
     {
         return [
-            'steamids' => implode(',', $this->steamId)
+            'steamids' => implode(',', $this->steamIds)
         ];
     }
 } 
