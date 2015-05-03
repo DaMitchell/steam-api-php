@@ -1,37 +1,37 @@
 <?php
 
-namespace Steam\Command\User;
+namespace Steam\Command\UserStats;
 
 use Steam\Command\CommandInterface;
 
-class GetUserGroupList implements CommandInterface
+class GetGlobalAchievementPercentagesForApp implements CommandInterface
 {
     /**
      * @var int
      */
-    protected $steamId;
+    protected $appId;
 
     /**
-     * @param int $steamId
+     * @param int $appId
      */
-    public function __construct($steamId)
+    public function __construct($appId)
     {
-        $this->steamId = $steamId;
+        $this->appId = $appId;
     }
 
     public function getInterface()
     {
-        return 'ISteamUser';
+        return 'ISteamUserStats';
     }
 
     public function getMethod()
     {
-        return 'GetUserGroupList';
+        return 'GetGlobalAchievementPercentagesForApp';
     }
 
     public function getVersion()
     {
-        return 'v1';
+        return 'v2';
     }
 
     public function getRequestMethod()
@@ -42,7 +42,7 @@ class GetUserGroupList implements CommandInterface
     public function getParams()
     {
         return [
-            'steamid' => $this->steamId,
+            'gameid' => $this->appId,
         ];
     }
-} 
+}
