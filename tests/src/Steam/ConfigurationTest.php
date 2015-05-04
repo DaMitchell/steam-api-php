@@ -36,15 +36,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($steamBaseUrl, $this->configuration->getBaseSteamApiUrl());
     }
 
-    public function testSettingLanguageIsCorrect()
-    {
-        $language = 'en';
-
-        $this->configuration->setLanguage($language);
-
-        $this->assertEquals($language, $this->configuration->getLanguage());
-    }
-
     /**
      * @expectedException \Steam\Exception\InvalidConfigOptionException
      */
@@ -57,13 +48,13 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     public function testSetOptionsWithValidOptions()
     {
-        $language = 'en';
+        $key = 'steam-api-key';
         $options = array(
-            'language' => $language
+            Configuration::STEAM_KEY => $key
         );
 
         $this->configuration->setOptions($options);
 
-        $this->assertEquals($language, $this->configuration->getLanguage());
+        $this->assertEquals($key, $this->configuration->getSteamKey());
     }
 }

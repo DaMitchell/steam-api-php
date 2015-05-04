@@ -51,10 +51,6 @@ class GuzzleRunner extends AbstractRunner implements RunnerInterface
                 $options[$key]['key'] = $config->getSteamKey();
             }
 
-            if(!empty($config->getLanguage())) {
-                $options[$key]['language'] = $config->getLanguage();
-            }
-
             $this->urlBuilder->setBaseUrl($config->getBaseSteamApiUrl());
         }
 

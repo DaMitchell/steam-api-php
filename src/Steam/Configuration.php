@@ -7,14 +7,12 @@ use Steam\Exception\InvalidConfigOptionException;
 class Configuration
 {
     const STEAM_KEY = 'steam_key';
-    const LANGUAGE = 'language';
 
     /**
      * @var array
      */
     protected $_options = array(
         self::STEAM_KEY => '',
-        self::LANGUAGE => '',
     );
 
     /**
@@ -55,22 +53,6 @@ class Configuration
     public function getSteamKey()
     {
         return $this->_options[self::STEAM_KEY];
-    }
-
-    /**
-     * @param string $language
-     *
-     * @return $this
-     */
-    public function setLanguage($language)
-    {
-        $this->_options[self::LANGUAGE] = $language;
-        return $this;
-    }
-
-    public function getLanguage()
-    {
-        return $this->_options[self::LANGUAGE];
     }
 
     /**

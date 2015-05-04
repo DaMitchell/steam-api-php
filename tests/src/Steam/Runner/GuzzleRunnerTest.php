@@ -51,7 +51,6 @@ class GuzzleRunnerTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->configMock->shouldReceive('getSteamKey')->andReturn('');
-        $this->configMock->shouldReceive('getLanguage')->andReturn('');
 
         $this->urlBuilderMock->shouldReceive('setBaseUrl')->with('http://base.url.com');
         $this->urlBuilderMock->shouldReceive('build')->andReturn($url);
@@ -71,11 +70,9 @@ class GuzzleRunnerTest extends \PHPUnit_Framework_TestCase
         $commandParams = ['a' => 'bc'];
         $url = 'http://base.url.com/built';
         $steamKey = 'test_steam_key';
-        $language = 'en';
 
         $options = ['query' => array_merge($commandParams, [
             'key' => $steamKey,
-            'language' => $language,
         ])];
 
         $commandMock = M::mock('Steam\Command\CommandInterface', [
@@ -84,7 +81,6 @@ class GuzzleRunnerTest extends \PHPUnit_Framework_TestCase
             ]);
 
         $this->configMock->shouldReceive('getSteamKey')->andReturn($steamKey);
-        $this->configMock->shouldReceive('getLanguage')->andReturn($language);
 
         $this->urlBuilderMock->shouldReceive('setBaseUrl')->with('http://base.url.com');
         $this->urlBuilderMock->shouldReceive('build')->andReturn($url);
