@@ -17,7 +17,7 @@ class GetItemIdTest extends \PHPUnit_Framework_TestCase
     public function testValues()
     {
         $this->assertEquals('ITFPromos_123', $this->instance->getInterface());
-        $this->assertEquals('GetItemId', $this->instance->getMethod());
+        $this->assertEquals('GetItemID', $this->instance->getMethod());
         $this->assertEquals('v1', $this->instance->getVersion());
         $this->assertEquals('GET', $this->instance->getRequestMethod());
         $this->assertEquals([
