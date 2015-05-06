@@ -2,7 +2,7 @@
 
 namespace Steam\Command\WebApiUtil;
 
-class GetSupportedAPIListTest extends \PHPUnit_Framework_TestCase
+class GetSupportedApiListTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var GetSupportedAPIList
@@ -11,7 +11,7 @@ class GetSupportedAPIListTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->instance = new GetSupportedAPIList();
+        $this->instance = new GetSupportedApiList();
     }
 
     public function testValues()
