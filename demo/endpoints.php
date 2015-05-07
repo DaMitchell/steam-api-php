@@ -12,14 +12,14 @@ use Steam\Runner\GuzzleRunner;
 use Steam\Steam;
 use Steam\Utility\GuzzleUrlBuilder;
 
-$config = include_once './steamKey.php';
+/*$config = include_once './steamKey.php';
 
 $steam = new Steam(new Configuration([
     Configuration::STEAM_KEY => $config['key'],
 ]));
 $steam->addRunner(new GuzzleRunner(new Client(), new GuzzleUrlBuilder()));
 
-/** @var FutureResponse $result */
+/** @var FutureResponse $result
 $result = $steam->run(new GetSupportedApiList());
 
 $interfaceMappings = [
@@ -82,11 +82,11 @@ $getInterfaceMapping = function($interfaceName) use ($interfaceMappings) {
     return false;
 };
 
-$baseCommandNamespace = 'Steam\Command';
+$baseCommandNamespace = 'Steam\Command';*/
 
 //echo $getInterfaceMapping('ITFPromos_') . "\n";
 
-$result->then(function(Response $response) use ($baseCommandNamespace, $getInterfaceMapping){
+/*$result->then(function(Response $response) use ($baseCommandNamespace, $getInterfaceMapping){
     $classes = [];
 
     $callback = function($interface) use ($baseCommandNamespace, $getInterfaceMapping, &$classes) {
@@ -108,4 +108,13 @@ $result->then(function(Response $response) use ($baseCommandNamespace, $getInter
     array_map($callback, $response->json()['apilist']['interfaces']);
 
     var_dump($classes);
-});
+});*/
+
+
+var_dump(bcadd(
+    bcadd(
+        (string) ((int)44592225 * 2),
+        '76561197960265728'
+    ),
+    0, 0
+));
