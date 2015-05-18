@@ -5,13 +5,13 @@ namespace Steam\Command\Apps;
 class AppListTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var AppList
+     * @var GetAppList
      */
     protected $instance;
 
     public function setUp()
     {
-        $this->instance = new AppList();
+        $this->instance = new GetAppList();
     }
 
     public function testValues()

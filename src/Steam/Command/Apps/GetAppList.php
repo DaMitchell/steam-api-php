@@ -4,7 +4,7 @@ namespace Steam\Command\Apps;
 
 use Steam\Command\CommandInterface;
 
-class AppList implements CommandInterface
+class GetAppList implements CommandInterface
 {
     public function getInterface()
     {

@@ -21,7 +21,7 @@ $steam = new Steam($config);
 $steam->addRunner(new GuzzleRunner($client, new GuzzleUrlBuilder()));
 
 /** @var \GuzzleHttp\Message\FutureResponse $result */
-$result = $steam->run(new \Steam\Command\Apps\AppList());
+$result = $steam->run(new \Steam\Command\Apps\GetAppList());
 
 $test = '';
 

@@ -12,24 +12,25 @@ use Steam\Runner\GuzzleRunner;
 use Steam\Steam;
 use Steam\Utility\GuzzleUrlBuilder;
 
-/*$config = include_once './steamKey.php';
+$config = include_once './steamKey.php';
 
 $steam = new Steam(new Configuration([
     Configuration::STEAM_KEY => $config['key'],
 ]));
 $steam->addRunner(new GuzzleRunner(new Client(), new GuzzleUrlBuilder()));
 
-/** @var FutureResponse $result
+/** @var FutureResponse $result */
 $result = $steam->run(new GetSupportedApiList());
 
 $interfaceMappings = [
     'ICSGOServers_730' => 'CSGOServers',
-    'IDOTA2Fantasy_205790' => 'Dota2Fantasy',
-    'IDOTA2Fantasy_570' => 'Dota2Fantasy',
-    'IDOTA2Match_205790' => 'Dota2Match',
-    'IDOTA2Match_570' => 'Dota2Match',
-    'IEconDOTA2_205790' => 'Dota2Econ',
-    'IEconDOTA2_570' => 'Dota2Econ',
+    'IDOTA2Fantasy_205790' => 'Dota2\Fantasy',
+    'IDOTA2Fantasy_570' => 'Dota2\Fantasy',
+    'IDOTA2Match_205790' => 'Dota2\Match',
+    'IDOTA2Match_570' => 'Dota2\Match',
+    'IDOTA2Ticket_570' => 'Dota2\Ticket',
+    'IEconDOTA2_205790' => 'Dota2',
+    'IEconDOTA2_570' => 'Dota2',
     'IEconItems_205790' => 'EconItems',
     'IEconItems_218620' => 'EconItems',
     'IEconItems_221540' => 'EconItems',
@@ -59,7 +60,7 @@ $interfaceMappings = [
     'ISteamUserStats' => 'UserStats',
     'ISteamWebAPIUtil' => 'WebApiUtil',
     'ISteamWebUserPresenceOAuth' => 'WebUserPresenceOAuth',
-    'ITFItems_440' => 'Items',
+    'ITFItems_440' => 'TeamFortressItems',
     'ITFPromos_205790' => 'Promos',
     'ITFPromos_440' => 'Promos',
     'ITFPromos_570' => 'Promos',
@@ -82,23 +83,34 @@ $getInterfaceMapping = function($interfaceName) use ($interfaceMappings) {
     return false;
 };
 
-$baseCommandNamespace = 'Steam\Command';*/
+$baseCommandNamespace = 'Steam\Command';
 
 //echo $getInterfaceMapping('ITFPromos_') . "\n";
 
-/*$result->then(function(Response $response) use ($baseCommandNamespace, $getInterfaceMapping){
+echo "\n";
+
+$result->then(function(Response $response) use ($baseCommandNamespace, $getInterfaceMapping){
     $classes = [];
 
     $callback = function($interface) use ($baseCommandNamespace, $getInterfaceMapping, &$classes) {
         //echo "'" . $interface['name'] . "' => '" . $getInterfaceMapping($interface['name']) . "',\n";
 
         foreach($interface['methods'] as $method) {
+            if($method['httpmethod'] !== 'GET') {
+                continue;
+            }
+
             if($interfaceName = $getInterfaceMapping($interface['name'])) {
+
                 $commandClass = sprintf('%s\%s\%s', $baseCommandNamespace, $interfaceName, $method['name']);
 
                 if(!class_exists($commandClass) && !in_array($commandClass, $classes)) {
                     $classes[] = $commandClass;
+
+                    echo "$commandClass\n";
                 }
+            } else {
+                echo sprintf("NEED A MAPPING FOR: interface: %s method: %s\n", $interface['name'], $method['name']);
             }
 
             //echo sprintf("/%s/%s/%s\n", $interface['name'], $method['name'], 'v' . $method['version']);
@@ -107,14 +119,16 @@ $baseCommandNamespace = 'Steam\Command';*/
 
     array_map($callback, $response->json()['apilist']['interfaces']);
 
-    var_dump($classes);
-});*/
+    //var_dump($classes);
+})->then(function(){
+    echo "\n";
+});
 
 
-var_dump(bcadd(
+/*var_dump(bcadd(
     bcadd(
         (string) ((int)44592225 * 2),
         '76561197960265728'
     ),
     0, 0
-));
+));*/
