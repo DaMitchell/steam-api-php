@@ -48,7 +48,7 @@ class GetMatchHistoryBySequenceNumTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['matches_requested' => 123], $this->instance->getParams());
     }
 
-    public function testSettingLeagueAndMatchId()
+    public function testSettingSeqAndMatchesRequested()
     {
         $this->instance->setStartAtMatchSeqNum(123);
         $this->instance->setMatchesRequested(456);
