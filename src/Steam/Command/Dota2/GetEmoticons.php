@@ -2,8 +2,6 @@
 
 namespace Steam\Command\Dota2;
 
-use Steam\Traits\Dota2CommandTrait;
-
 class GetEmoticons
 {
     public function getInterface()
