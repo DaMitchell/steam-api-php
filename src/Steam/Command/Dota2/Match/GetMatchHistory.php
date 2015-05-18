@@ -91,6 +91,12 @@ class GetMatchHistory
      */
     public function setGameMode($gameMode)
     {
+        $gameMode = (int) $gameMode;
+
+        if($gameMode < 0 || $gameMode > 16) {
+            throw new \InvalidArgumentException('Invalid game mode. Must be between 0 and 16');
+        }
+
         $this->gameMode = $gameMode;
         return $this;
     }
@@ -146,6 +152,12 @@ class GetMatchHistory
      */
     public function setSkill($skill)
     {
+        $skill = (int) $skill;
+
+        if($skill < 0 || $skill > 3) {
+            throw new \InvalidArgumentException('Invalid skill. Must be between 0 and 3');
+        }
+
         $this->skill = $skill;
         return $this;
     }

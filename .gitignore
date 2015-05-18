@@ -1,4 +1,5 @@
 vendor
+tests/report
 composer.lock
 composer.bat
 composer.phar
