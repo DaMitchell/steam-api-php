@@ -21,20 +21,20 @@ class QueryFilesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('v1', $this->instance->getVersion());
         $this->assertEquals('GET', $this->instance->getRequestMethod());
         $this->assertEquals([
-            'page'                      => 1,
-            'numberpage'                => 10,
-            'match_all_tags'            => true,
-            'cache_max_age_seconds'     => 0,
+            'page' => 1,
+            'numberpage' => 10,
+            'match_all_tags' => true,
+            'cache_max_age_seconds' => 0,
             'include_recent_votes_only' => false,
-            'totalonly'                 => false,
-            'return_vote_data'          => false,
-            'return_tags'               => false,
-            'return_kv_tags'            => false,
-            'return_previews'           => false,
-            'return_children'           => false,
-            'return_short_description'  => false,
-            'return_for_sale_data'      => false,
-            'return_metadata'           => false,
+            'totalonly' => false,
+            'return_vote_data' => false,
+            'return_tags' => false,
+            'return_kv_tags' => false,
+            'return_previews' => false,
+            'return_children' => false,
+            'return_short_description' => false,
+            'return_for_sale_data' => false,
+            'return_metadata' => false,
         ], $this->instance->getParams());
     }
 
@@ -191,20 +191,20 @@ class QueryFilesTest extends \PHPUnit_Framework_TestCase
     public function assertParams($params)
     {
         $this->assertEquals(array_merge([
-            'page'                      => 1,
-            'numberpage'                => 10,
-            'match_all_tags'            => true,
-            'cache_max_age_seconds'     => 0,
+            'page' => 1,
+            'numberpage' => 10,
+            'match_all_tags' => true,
+            'cache_max_age_seconds' => 0,
             'include_recent_votes_only' => false,
-            'totalonly'                 => false,
-            'return_vote_data'          => false,
-            'return_tags'               => false,
-            'return_kv_tags'            => false,
-            'return_previews'           => false,
-            'return_children'           => false,
-            'return_short_description'  => false,
-            'return_for_sale_data'      => false,
-            'return_metadata'           => false,
+            'totalonly' => false,
+            'return_vote_data' => false,
+            'return_tags' => false,
+            'return_kv_tags' => false,
+            'return_previews' => false,
+            'return_children' => false,
+            'return_short_description' => false,
+            'return_for_sale_data' => false,
+            'return_metadata' => false,
         ], $params), $this->instance->getParams());
     }
 }
