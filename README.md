@@ -6,44 +6,45 @@ A PHP wrapper for the Steam API
 It would be great to hear from people that are actively using this. 
 Here is a link to Gitter [https://gitter.im/DaMitchell/steam-api-php](https://gitter.im/DaMitchell/steam-api-php).
 
+This is v2 of the library and it is pretty much a rewirte that makes it more flexible. It will allow you to do whatever you want to the response whether that is to get an array of map the response onto an object.
+
 Usage
 -----
 ```php
 <?php
 
-use JMS\Serializer\SerializerBuilder;
-use Steam\Adapter\Guzzle;
+use GuzzleHttp\Client;
 use Steam\Configuration;
-use Steam\Api\User;
+use Steam\Runner\GuzzleRunner;
+use Steam\Steam;
+use Steam\Utility\GuzzleUrlBuilder;
 
-$config = new Configuration(array(
-    'steamKey' => '{STEAM_KEY}',
-));
+$steam = new Steam(new Configuration());
+$steam->addRunner(new GuzzleRunner(new Client(), new GuzzleUrlBuilder()));
 
-$adapter = new Guzzle($config);
-$adapter->setSerializer(SerializerBuilder::create()->build());
+/** @var \GuzzleHttp\Message\FutureResponse $result */
+$result = $steam->run(new \Steam\Command\Apps\GetAppList());
 
-$user = new User();
-$user->setAdapter($adapter);
+$appList = [];
 
-$result = $user->getFriendList(76561198049450178);
+$result->then(function(\GuzzleHttp\Message\Response $response){
+    var_dump($response->json());
+});
 ```
 
 Configuration
 -------------
-The configuration object has 3 options:
+The configuration object has now has 1 option from the 3 that were in v1:
 - **steamKey**, the API key you can get from [http://steamcommunity.com/dev/apikey](http://steamcommunity.com/dev/apikey).
-- **appId**, the ID of the game.
-- **language**, the language you wish the results to be in. 
 
-Adapters
---------
-Adapters here are the classes that make the requests to the Steam API. They must implement `\Steam\Adapter\AdapterInterface`. They can also, but are not required to, extend `\Steam\Adapter\AdapterAbstract`, which just has some useful properties and methods.
+Command
+-------
+Commands are the essentially classes that describe each endpoint. Each command implements `Steam\Command\CommandInterface` and has methods that will give the runners its interface, method, version, HTTP method and any params the endpoint requires.
 
-I have implemented one adapter so far which makes use of the [https://github.com/guzzle/guzzle](Guzzle) library. The constructor of the class takes in the configuration object describes in the previous section. Another library the Guzzle adapter makes use of is the [http://jmsyst.com/libs/serializer](serializer) from Johannes Schmitt.
+I have implemented all commands for all the of the GET endpoints. Im not really sure which POST ones to implements since I am not really sure how some of them work. So if anyone understands them please implement them and put in a PR and I will add them in..
 
-Endpoints
----------
-Obviously each endpoint is described in a class matching up to what is described in the Steam API. Each one of those classes then has the adapter set using the `setAdapter` method which will handle all the magic of getting the response.
+Runners
+-------
+So runners are pretty simple objects, they implement `Steam\Runner\RunnerInterface` which has 3 methods, the most important being `run`. They other 2 are for setting the config object, 
 
-At the minute each method will called `getParsedBody`, which I am not sure everyone will want but at the minute it makes sense to have it so you get the deserialised version of the response. In future releases I may change it so the adapter is returned instead.
+The run method has 2 arguments, `$command` and `$result`. Obviously `$command` is the endpoint you request on and `$result` is the result of the previous runner. This means that the `$result` of the first runner attached will be null.

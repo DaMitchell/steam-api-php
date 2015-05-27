@@ -9,24 +9,14 @@ use Steam\Runner\GuzzleRunner;
 use Steam\Steam;
 use Steam\Utility\GuzzleUrlBuilder;
 
-$config = new Configuration();
-
-$client = new Client([
-    /*'defaults' => [
-        'future' => true,
-    ],*/
-]);
-
-$steam = new Steam($config);
-$steam->addRunner(new GuzzleRunner($client, new GuzzleUrlBuilder()));
+$steam = new Steam(new Configuration());
+$steam->addRunner(new GuzzleRunner(new Client(), new GuzzleUrlBuilder()));
 
 /** @var \GuzzleHttp\Message\FutureResponse $result */
 $result = $steam->run(new \Steam\Command\Apps\GetAppList());
 
-$test = '';
+$appList = [];
 
-$result->then(function(\GuzzleHttp\Message\Response $response) use (&$test){
-    $test = array_keys($response->json());
+$result->then(function(\GuzzleHttp\Message\Response $response){
+    var_dump($response->json());
 });
-
-var_dump($test);
