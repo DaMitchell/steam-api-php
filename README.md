@@ -8,6 +8,10 @@ Here is a link to Gitter [https://gitter.im/DaMitchell/steam-api-php](https://gi
 
 This is v2 of the library and it is pretty much a rewirte that makes it more flexible. It will allow you to do whatever you want to the response whether that is to get an array of map the response onto an object.
 
+Installation
+------------
+Install the latest version using [Composer](http://getcomposer.org) by running `composer require da-mitchell/steam-api`
+
 Usage
 -----
 ```php
@@ -48,3 +52,7 @@ Runners
 So runners are pretty simple objects, they implement `Steam\Runner\RunnerInterface` which has 3 methods, the most important being `run`. They other 2 are for setting the config object, 
 
 The run method has 2 arguments, `$command` and `$result`. Obviously `$command` is the endpoint you request on and `$result` is the result of the previous runner. This means that the `$result` of the first runner attached will be null.
+
+Tests
+-----
+Run the tests from the project root with `php vendor/bin/phpunit`
