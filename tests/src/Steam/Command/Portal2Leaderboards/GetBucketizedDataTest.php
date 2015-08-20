@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Portal2Leaderboards;
 
+use Steam\Command\CommandInterface;
+
 class GetBucketizedDataTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetBucketizedDataTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetBucketizedData('test');
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

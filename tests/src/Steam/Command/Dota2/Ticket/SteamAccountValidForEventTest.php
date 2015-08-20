@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Dota2\Ticket;
 
+use Steam\Command\CommandInterface;
+
 class SteamAccountValidForEventTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class SteamAccountValidForEventTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new SteamAccountValidForEvent(123, 456);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

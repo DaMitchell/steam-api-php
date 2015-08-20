@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Version;
 
+use Steam\Command\CommandInterface;
+
 class GetServerVersionTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetServerVersionTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetServerVersion(123);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

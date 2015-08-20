@@ -2,6 +2,8 @@
 
 namespace Steam\Command\GameServersService;
 
+use Steam\Command\CommandInterface;
+
 class GetAccountListTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetAccountListTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetAccountList(123);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

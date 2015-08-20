@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Apps;
 
+use Steam\Command\CommandInterface;
+
 class GetServersAtAddressTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetServersAtAddressTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetServersAtAddress('127.0.0.1');
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

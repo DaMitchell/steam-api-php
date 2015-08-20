@@ -2,6 +2,8 @@
 
 namespace Steam\Command\EconService;
 
+use Steam\Command\CommandInterface;
+
 class GetTradeOffersTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetTradeOffersTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetTradeOffers();
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

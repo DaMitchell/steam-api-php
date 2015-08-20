@@ -2,6 +2,8 @@
 
 namespace Steam\Command\GameServersService;
 
+use Steam\Command\CommandInterface;
+
 class GetServerSteamIDsByIPTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetServerSteamIDsByIPTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetServerSteamIDsByIP('127.0.0.1');
+    }
+    
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

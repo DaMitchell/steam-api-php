@@ -2,6 +2,8 @@
 
 namespace Steam\Command\PublishedFileService;
 
+use Steam\Command\CommandInterface;
+
 class QueryFilesTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class QueryFilesTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new QueryFiles();
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

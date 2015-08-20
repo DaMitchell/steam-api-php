@@ -2,6 +2,8 @@
 
 namespace Steam\Command\RemoteStorage;
 
+use Steam\Command\CommandInterface;
+
 class GetUGCFileDetailsTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetUGCFileDetailsTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetUGCFileDetails(123, 456);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

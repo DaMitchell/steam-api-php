@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Promos;
 
+use Steam\Command\CommandInterface;
+
 class GetItemIdTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetItemIdTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetItemId(123, 456, 789);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

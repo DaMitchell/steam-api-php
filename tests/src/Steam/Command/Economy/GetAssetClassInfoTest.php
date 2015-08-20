@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Economy;
 
+use Steam\Command\CommandInterface;
+
 class GetAssetClassInfoTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetAssetClassInfoTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetAssetClassInfo(123, [1, 2, 3]);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

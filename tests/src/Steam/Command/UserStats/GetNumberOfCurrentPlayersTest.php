@@ -2,6 +2,8 @@
 
 namespace Steam\Command\UserStats;
 
+use Steam\Command\CommandInterface;
+
 class GetNumberOfCurrentPlayersTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetNumberOfCurrentPlayersTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetNumberOfCurrentPlayers(123);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

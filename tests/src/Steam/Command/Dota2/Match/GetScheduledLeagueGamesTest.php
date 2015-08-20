@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Dota2\Match;
 
+use Steam\Command\CommandInterface;
+
 class GetScheduledLeagueGamesTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetScheduledLeagueGamesTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetScheduledLeagueGames();
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

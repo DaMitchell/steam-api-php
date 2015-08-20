@@ -2,6 +2,8 @@
 
 namespace Steam\Command\UserOAuth;
 
+use Steam\Command\CommandInterface;
+
 class GetTokenDetailsTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetTokenDetailsTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetTokenDetails('access_token_string');
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

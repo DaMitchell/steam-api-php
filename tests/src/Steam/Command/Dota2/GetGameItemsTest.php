@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Dota2;
 
+use Steam\Command\CommandInterface;
+
 class GetGameItemsTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetGameItemsTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetGameItems();
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

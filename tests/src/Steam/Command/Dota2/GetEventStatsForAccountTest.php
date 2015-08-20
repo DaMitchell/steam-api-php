@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Dota2;
 
+use Steam\Command\CommandInterface;
+
 class GetEventStatsForAccountTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetEventStatsForAccountTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetEventStatsForAccount(123, 456);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

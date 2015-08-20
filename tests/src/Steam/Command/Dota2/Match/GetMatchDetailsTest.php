@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Dota2\Match;
 
+use Steam\Command\CommandInterface;
+
 class GetMatchDetailsTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetMatchDetailsTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetMatchDetails(123);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

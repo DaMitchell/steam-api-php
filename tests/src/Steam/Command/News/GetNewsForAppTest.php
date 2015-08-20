@@ -2,6 +2,8 @@
 
 namespace Steam\Command\News;
 
+use Steam\Command\CommandInterface;
+
 class GetNewsForAppTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetNewsForAppTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetNewsForApp(570);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

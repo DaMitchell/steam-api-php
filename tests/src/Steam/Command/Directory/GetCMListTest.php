@@ -8,6 +8,8 @@
 
 namespace Steam\Command\Directory;
 
+use Steam\Command\CommandInterface;
+
 class GetCMListTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -18,6 +20,11 @@ class GetCMListTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetCMList(123);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

@@ -2,6 +2,8 @@
 
 namespace Steam\Command\CSGOServers;
 
+use Steam\Command\CommandInterface;
+
 class GetGameServersStatusTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetGameServersStatusTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetGameServersStatus();
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

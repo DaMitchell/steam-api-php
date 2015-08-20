@@ -2,6 +2,8 @@
 
 namespace Steam\Command\Dota2\Fantasy;
 
+use Steam\Command\CommandInterface;
+
 class GetFantasyPlayerStatsTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetFantasyPlayerStatsTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetFantasyPlayerStats(123);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

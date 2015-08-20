@@ -2,6 +2,8 @@
 
 namespace Steam\Command\TeamFortressItems;
 
+use Steam\Command\CommandInterface;
+
 class GetGoldenWrenchesTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetGoldenWrenchesTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetGoldenWrenches();
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

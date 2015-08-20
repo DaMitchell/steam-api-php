@@ -2,6 +2,8 @@
 
 namespace Steam\Command\UserStats;
 
+use Steam\Command\CommandInterface;
+
 class GetGlobalStatsForGameTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class GetGlobalStatsForGameTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new GetGlobalStatsForGame(570, ['test']);
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

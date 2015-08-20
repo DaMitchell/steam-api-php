@@ -2,6 +2,8 @@
 
 namespace Steam\Command\UserAuth;
 
+use Steam\Command\CommandInterface;
+
 class AuthenticateUserTicketTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class AuthenticateUserTicketTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new AuthenticateUserTicket(123, 'test');
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()

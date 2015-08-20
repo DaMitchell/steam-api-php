@@ -2,6 +2,8 @@
 
 namespace Steam\Command\User;
 
+use Steam\Command\CommandInterface;
+
 class ResolveVanityUrlTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -12,6 +14,11 @@ class ResolveVanityUrlTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->instance = new ResolveVanityUrl('http://vanity.url');
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertTrue($this->instance instanceof CommandInterface);
     }
 
     public function testValues()
