@@ -2,9 +2,10 @@
 
 namespace Steam\Command\Dota2\Fantasy;
  
+use Steam\Command\CommandInterface;
 use Steam\Traits\Dota2CommandTrait;
 
-class GetPlayerOfficialInfo
+class GetPlayerOfficialInfo implements CommandInterface
 {
     use Dota2CommandTrait;
 

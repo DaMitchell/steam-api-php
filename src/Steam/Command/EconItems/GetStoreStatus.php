@@ -2,7 +2,9 @@
 
 namespace Steam\Command\EconItems;
 
-class GetStoreStatus 
+use Steam\Command\CommandInterface;
+
+class GetStoreStatus implements CommandInterface
 {
     /**
      * @var int

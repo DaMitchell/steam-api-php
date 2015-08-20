@@ -2,7 +2,9 @@
 
 namespace Steam\Command\EconService;
  
-class GetTradeOffer 
+use Steam\Command\CommandInterface;
+
+class GetTradeOffer implements CommandInterface
 {
     /**
      * @var int

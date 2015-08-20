@@ -2,7 +2,9 @@
 
 namespace Steam\Command\EconItems;
 
-class GetPlayerItems 
+use Steam\Command\CommandInterface;
+
+class GetPlayerItems implements CommandInterface
 {
     /**
      * @var int

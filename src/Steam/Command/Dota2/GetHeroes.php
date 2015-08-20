@@ -2,9 +2,10 @@
 
 namespace Steam\Command\Dota2;
 
+use Steam\Command\CommandInterface;
 use Steam\Traits\Dota2CommandTrait;
 
-class GetHeroes
+class GetHeroes implements CommandInterface
 {
     use Dota2CommandTrait;
 

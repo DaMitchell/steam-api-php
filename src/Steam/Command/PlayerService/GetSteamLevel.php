@@ -2,7 +2,9 @@
 
 namespace Steam\Command\PlayerService;
 
-class GetSteamLevel 
+use Steam\Command\CommandInterface;
+
+class GetSteamLevel implements CommandInterface
 {
     /**
      * @var int

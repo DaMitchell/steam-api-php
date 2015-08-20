@@ -2,9 +2,10 @@
 
 namespace Steam\Command\Dota2\Match;
 
+use Steam\Command\CommandInterface;
 use Steam\Traits\Dota2CommandTrait;
 
-class GetLiveLeagueGames
+class GetLiveLeagueGames implements CommandInterface
 {
     use Dota2CommandTrait;
 

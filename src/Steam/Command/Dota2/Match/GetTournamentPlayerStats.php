@@ -2,9 +2,10 @@
 
 namespace Steam\Command\Dota2\Match;
 
+use Steam\Command\CommandInterface;
 use Steam\Traits\Dota2CommandTrait;
 
-class GetTournamentPlayerStats
+class GetTournamentPlayerStats implements CommandInterface
 {
     use Dota2CommandTrait;
 

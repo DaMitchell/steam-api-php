@@ -2,7 +2,9 @@
 
 namespace Steam\Command\EconItems;
 
-class GetStoreMetaData 
+use Steam\Command\CommandInterface;
+
+class GetStoreMetaData implements CommandInterface
 {
     /**
      * @var int

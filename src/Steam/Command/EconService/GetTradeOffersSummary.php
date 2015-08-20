@@ -2,7 +2,9 @@
 
 namespace Steam\Command\EconService;
  
-class GetTradeOffersSummary 
+use Steam\Command\CommandInterface;
+
+class GetTradeOffersSummary implements CommandInterface
 {
     /**
      * @var \DateTime
