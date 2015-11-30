@@ -8,7 +8,7 @@ Here is a link to Gitter [https://gitter.im/DaMitchell/steam-api-php](https://gi
 
 This is v2 of the library and it is pretty much a rewirte that makes it more flexible. It will allow you to do whatever you want to the response whether that is to get an array of map the response onto an object.
 
-I have based all the available commands on what is documented here [https://lab.xpaw.me/steam_api_documentation.html](https://lab.xpaw.me/steam_api_documentation.html), which uses an API call to get its information.
+I have based all the available commands on what is documented here [https://lab.xpaw.me/steam_api_documentation.html](https://lab.xpaw.me/steam_api_documentation.html).
 
 Installation
 ------------
