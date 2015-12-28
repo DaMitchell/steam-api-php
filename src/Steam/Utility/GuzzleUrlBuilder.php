@@ -34,7 +34,7 @@ class GuzzleUrlBuilder implements UrlBuilderInterface
      */
     public function build(CommandInterface $command)
     {
-        $uri = sprintf('%s%s/%s/%s',
+        $uri = sprintf('%s/%s/%s/%s',
             rtrim($this->getBaseUrl()),
             $command->getInterface(),
             $command->getMethod(),

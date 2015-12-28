@@ -18,7 +18,7 @@ class GuzzleUrlBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUrlIsReturnedAndInTheCorrectFormat()
     {
-        $baseUrl = 'http://base.url.com/';
+        $baseUrl = 'http://base.url.com';
 
         $commandMock = M::mock('Steam\Command\CommandInterface', [
                 'getInterface' => 'testInterface',
