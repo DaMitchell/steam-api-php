@@ -2,16 +2,15 @@
 
 namespace Steam\Runner;
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Steam\Command\CommandInterface;
-use Steam\Exception\InvalidResultException;
 
-class GuzzleJsonRunner extends AbstractRunner implements RunnerInterface
+class DecodeJsonStringRunner extends AbstractRunner implements RunnerInterface
 {
     /**
      * {@inheritdoc}
      *
-     * @param ResponseInterface $result
+     * @param \Psr\Http\Message\ResponseInterface $result
      */
     public function run(CommandInterface $command, $result = null)
     {
@@ -20,6 +19,6 @@ class GuzzleJsonRunner extends AbstractRunner implements RunnerInterface
                 'The result needs to be an instance of GuzzleHttp\Message\ResponseInterface');
         }
 
-        return $result->json();
+        return json_decode($result->getBody()->getContents(), true);
     }
 }

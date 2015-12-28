@@ -2,6 +2,7 @@
 
 namespace Steam\Utility;
 
+use GuzzleHttp\Psr7\Uri;
 use Steam\Command\CommandInterface;
 
 class GuzzleUrlBuilder implements UrlBuilderInterface
@@ -33,12 +34,13 @@ class GuzzleUrlBuilder implements UrlBuilderInterface
      */
     public function build(CommandInterface $command)
     {
-        $pattern = rtrim($this->getBaseUrl(), '/') . '/{interface}/{method}/{version}';
+        $uri = sprintf('%s%s/%s/%s',
+            rtrim($this->getBaseUrl()),
+            $command->getInterface(),
+            $command->getMethod(),
+            $command->getVersion()
+        );
 
-        return [$pattern, [
-            'interface' => $command->getInterface(),
-            'method' => $command->getMethod(),
-            'version' => $command->getVersion(),
-        ]];
+        return new Uri($uri);
     }
 }
