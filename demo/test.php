@@ -4,7 +4,6 @@
 include_once __DIR__ . '/../vendor/autoload.php';
 
 use GuzzleHttp\Client;
-
 use Steam\Configuration;
 use Steam\Runner\GuzzleRunner;
 use Steam\Runner\DecodeJsonStringRunner;
