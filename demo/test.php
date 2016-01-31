@@ -10,7 +10,9 @@ use Steam\Runner\DecodeJsonStringRunner;
 use Steam\Steam;
 use Steam\Utility\GuzzleUrlBuilder;
 
-$steam = new Steam(new Configuration());
+$steam = new Steam(new Configuration([
+    Configuration::STEAM_KEY => '<insert steam key here>'
+]));
 $steam->addRunner(new GuzzleRunner(new Client(), new GuzzleUrlBuilder()));
 $steam->addRunner(new DecodeJsonStringRunner());
 

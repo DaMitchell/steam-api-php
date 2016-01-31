@@ -26,7 +26,9 @@ use Steam\Runner\DecodeJsonStringRunner;
 use Steam\Steam;
 use Steam\Utility\GuzzleUrlBuilder;
 
-$steam = new Steam(new Configuration());
+$steam = new Steam(new Configuration([
+    Configuration::STEAM_KEY => '<insert steam key here>'
+]));
 $steam->addRunner(new GuzzleRunner(new Client(), new GuzzleUrlBuilder()));
 $steam->addRunner(new DecodeJsonStringRunner());
 
@@ -39,7 +41,15 @@ var_dump($result);
 Configuration
 -------------
 The configuration object has now has 1 option from the 3 that were in v1:
-- **steamKey**, the API key you can get from [http://steamcommunity.com/dev/apikey](http://steamcommunity.com/dev/apikey).
+- **steam_key**, the API key you can get from [http://steamcommunity.com/dev/apikey](http://steamcommunity.com/dev/apikey).
+
+As shown above you set the steam by passing it into the Configuration constructor:
+
+```php
+$steam = new Steam(new Configuration([
+    Configuration::STEAM_KEY => '<insert steam key here>'
+]));
+```
 
 Command
 -------
