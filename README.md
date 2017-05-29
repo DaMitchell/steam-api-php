@@ -40,10 +40,13 @@ var_dump($result);
 
 Configuration
 -------------
-The configuration object has now has 1 option from the 3 that were in v1:
+Two parameters can be passed to the `Configuration` object:
 - **steam_key**, the API key you can get from [http://steamcommunity.com/dev/apikey](http://steamcommunity.com/dev/apikey).
+- **base_steam_api_url**, an optional parameter to override `http://api
+.steampowered.com` as the base API URL. 
 
-As shown above you set the steam by passing it into the Configuration constructor:
+As shown above you can set the Steam API key by passing it into the 
+`Configuration` constructor:
 
 ```php
 $steam = new Steam(new Configuration([
