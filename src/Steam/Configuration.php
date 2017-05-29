@@ -7,12 +7,14 @@ use Steam\Exception\InvalidConfigOptionException;
 class Configuration
 {
     const STEAM_KEY = 'steam_key';
+    const BASE_STEAM_API_URL = 'base_steam_api_url';
 
     /**
      * @var array
      */
     protected $_options = array(
         self::STEAM_KEY => '',
+        self::BASE_STEAM_API_URL => 'http://api.steampowered.com'
     );
 
     /**
@@ -60,6 +62,6 @@ class Configuration
      */
     public function getBaseSteamApiUrl()
     {
-        return 'http://api.steampowered.com';
+        return $this->_options[self::BASE_STEAM_API_URL];
     }
 }
