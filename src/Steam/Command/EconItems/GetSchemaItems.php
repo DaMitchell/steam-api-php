@@ -78,7 +78,7 @@ class GetSchemaItems implements CommandInterface
         $params = [];
 
         empty($this->language) ?: $params['language'] = $this->language;
-        $params['start'] = $this->start ?: 0;
+        empty($this->start) ?: $params['start'] = $this->start;
 
         return $params;
     }
