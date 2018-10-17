@@ -4,10 +4,7 @@ namespace Steam\Command\EconItems;
 
 use Steam\Command\CommandInterface;
 
-/**
- * @deprecated Has been removed by Valve; use GetSchemaItems/GetSchemaOverview
- */
-class GetSchema implements CommandInterface
+class GetSchemaOverview implements CommandInterface
 {
     /**
      * @var int
@@ -45,7 +42,7 @@ class GetSchema implements CommandInterface
 
     public function getMethod()
     {
-        return 'GetSchema';
+        return 'GetSchemaOverview';
     }
 
     public function getVersion()

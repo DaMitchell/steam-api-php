@@ -4,10 +4,7 @@ namespace Steam\Command\EconItems;
 
 use Steam\Command\CommandInterface;
 
-/**
- * @deprecated Has been removed by Valve; use GetSchemaItems/GetSchemaOverview
- */
-class GetSchema implements CommandInterface
+class GetSchemaItems implements CommandInterface
 {
     /**
      * @var int
@@ -18,6 +15,11 @@ class GetSchema implements CommandInterface
      * @var string
      */
     protected $language;
+
+    /**
+     * @var string
+     */
+    protected $start;
 
     /**
      * @param int $appId
@@ -38,6 +40,19 @@ class GetSchema implements CommandInterface
         return $this;
     }
 
+    /**
+     * The first item id to return. Defaults to 0. Response will indicate next value to query if applicable.
+     *
+     * @param int $start
+     *
+     * @return self
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+        return $this;
+    }
+
     public function getInterface()
     {
         return 'IEconItems_' . $this->appId;
@@ -45,7 +60,7 @@ class GetSchema implements CommandInterface
 
     public function getMethod()
     {
-        return 'GetSchema';
+        return 'GetSchemaItems';
     }
 
     public function getVersion()
@@ -63,6 +78,7 @@ class GetSchema implements CommandInterface
         $params = [];
 
         empty($this->language) ?: $params['language'] = $this->language;
+        $params['start'] = $this->start ?: 0;
 
         return $params;
     }
